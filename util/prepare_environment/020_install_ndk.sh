@@ -2,7 +2,7 @@
 #
 # Installs current NDK version and removes unused toolchains and platforms
 #
-# Version 0.1 (2016-09-12)
+# Version 0.2 (2016-09-23)
 #
 # Dependencies: ndk @ google/android
 #
@@ -22,7 +22,7 @@ pushd $NDK_DIR
 	popd
 
 	pushd platforms
-		rm -r android-9 android-12 android-13 android-14 android-15 android-16 android-17 android-18 android-22 android-23 android-24
+		rm -r android-9 android-12 android-13 android-14 android-15 android-17 android-18 android-19 android-22 android-23 android-24
 	popd
 popd
 

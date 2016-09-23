@@ -3,7 +3,7 @@
 # Builds modified version of build_corelibs_libdispatch. 
 # Waiting for (#162) (https://github.com/apple/swift-corelibs-libdispatch/pull/162)
 #
-# Version 0.1 (2016-09-12)
+# Version 0.2 (2016-09-23)
 #
 # Dependencies: swift @ github/apple
 #               swift-corelibs-libdispatch @ github/gonzalolarralde
@@ -34,6 +34,10 @@ pushd $SWIFT_ANDROID_SOURCE
 				--disable-build-tests
 
 		make
+		make install
+
+		mv /usr/local/lib/swift/android/ /usr/local/lib/swift/android
+		mv /usr/local/lib/swift/android/x86_64/ /usr/local/lib/swift/android/armv7
 
 	popd
 

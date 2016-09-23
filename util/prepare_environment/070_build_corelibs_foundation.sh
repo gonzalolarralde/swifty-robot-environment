@@ -3,7 +3,7 @@
 # Builds modified version of build_corelibs_foundation by John Holdsworth (tw:@Injection4Xcode)
 # Waiting for (#622) (https://github.com/apple/swift-corelibs-foundation/pull/622)
 #
-# Version 0.1 (2016-09-12)
+# Version 0.1 (2016-09-23)
 #
 # Dependencies: swift @ github/apple
 #               swift-corelibs-libdispatch @ github/gonzalolarralde
@@ -124,7 +124,13 @@ pushd $TOOLCHAIN/sysroot
 	export CHOST=
 	export CXXFLAGS=
 	export CPPFLAGS=
-
+	
+	# Move dispatch public and private headers to the directory foundation is expecting to get it
+	
+	mkdir -p $SYSROOT/usr/include/dispatch
+	cp $SWIFT_ANDROID_SOURCE/swift-corelibs-libdispatch/dispatch/*.h $SYSROOT/usr/include/dispatch
+	cp $SWIFT_ANDROID_SOURCE/swift-corelibs-libdispatch/private/*.h $SYSROOT/usr/include/dispatch
+	
 	# Build foundation
 	# Remove default foundation implementation and fetch the version with android support
 
@@ -149,8 +155,8 @@ pushd $TOOLCHAIN/sysroot
 				BUILD_DIR="$SWIFT_ANDROID_BUILDPATH/foundation-linux-x86_64" \
 				DSTROOT="/" \
 				PREFIX="/usr/" \
-				CFLAGS="-DDEPLOYMENT_TARGET_ANDROID -DDEPLOYMENT_ENABLE_LIBDISPATCH --sysroot=$NDK/platforms/android-21/arch-arm -I$LIBICONV_ANDROID/armeabi-v7a/include -I${SDKROOT}/lib/swift" \
-				SWIFTCFLAGS="-DDEPLOYMENT_TARGET_ANDROID -DDEPLOYMENT_ENABLE_LIBDISPATCH -I$NDK/platforms/android-21/arch-arm/usr/include" \
+				CFLAGS="-DDEPLOYMENT_TARGET_ANDROID -DDEPLOYMENT_ENABLE_LIBDISPATCH --sysroot=$NDK/platforms/android-21/arch-arm -I$LIBICONV_ANDROID/armeabi-v7a/include -I${SDKROOT}/lib/swift -I$NDK/sources/android/support/include -I$SYSROOT/usr/include" \
+				SWIFTCFLAGS="-DDEPLOYMENT_TARGET_ANDROID -DDEPLOYMENT_ENABLE_LIBDISPATCH -I$NDK/platforms/android-21/arch-arm/usr/include -L /usr/local/lib/swift/android -I /usr/local/lib/swift/android/armv7" \
 				LDFLAGS="-fuse-ld=gold --sysroot=$NDK/platforms/android-21/arch-arm -L$NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/lib/gcc/arm-linux-androideabi/4.9.x -L$LIBICONV_ANDROID/armeabi-v7a -L$SWIFT_ANDROID_BUILDPATH/swift-linux-x86_64/lib/swift/android -L$SYSROOT/usr/lib -ldispatch" \
 				./configure \
 					Release \
