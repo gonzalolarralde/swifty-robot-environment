@@ -2,7 +2,7 @@
 #
 # Installs current NDK version and removes unused toolchains and platforms
 #
-# Version 0.2 (2016-09-23)
+# Version 0.3 (2016-11-27)
 #
 # Dependencies: ndk @ google/android
 #
@@ -10,7 +10,7 @@
 source .profile
 
 mkdir ndk
-wget https://dl.google.com/android/repository/android-ndk-r12b-linux-x86_64.zip -O ndk.zip
+wget https://dl.google.com/android/repository/android-ndk-r13b-linux-x86_64.zip -O ndk.zip
 unzip ndk.zip -d ./ndk
 rm ndk.zip
 

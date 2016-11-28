@@ -3,7 +3,7 @@
 # Builds modified version of build_corelibs_libdispatch. 
 # Waiting for (#162) (https://github.com/apple/swift-corelibs-libdispatch/pull/162)
 #
-# Version 0.2 (2016-09-23)
+# Version 0.3 (2016-11-27)
 #
 # Dependencies: swift @ github/apple
 #               swift-corelibs-libdispatch @ github/gonzalolarralde
@@ -15,7 +15,7 @@ pushd $SWIFT_ANDROID_SOURCE
 
 	# Remove default libdispatch implementation and fetch the version with android support
 	rm -r swift-corelibs-libdispatch
-	git clone https://github.com/gonzalolarralde/swift-corelibs-libdispatch -b android-support-rebased --recursive
+	git clone https://github.com/gonzalolarralde/swift-corelibs-libdispatch -b android-support --recursive
 
 	pushd swift-corelibs-libdispatch
 

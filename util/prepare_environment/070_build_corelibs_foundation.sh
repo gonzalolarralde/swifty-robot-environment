@@ -3,7 +3,7 @@
 # Builds modified version of build_corelibs_foundation by John Holdsworth (tw:@Injection4Xcode)
 # Waiting for (#622) (https://github.com/apple/swift-corelibs-foundation/pull/622)
 #
-# Version 0.1 (2016-09-23)
+# Version 0.3 (2016-11-27)
 #
 # Dependencies: swift @ github/apple
 #               swift-corelibs-libdispatch @ github/gonzalolarralde
@@ -11,16 +11,16 @@
 #               openssl @ openssl.org
 #               curl @ github/curl
 #               libxml2 @ git/gnome
-#               swift-corelibs-foundation @ github/SwiftJava
+#               swift-corelibs-foundation @ github/apple
 #
 
 source .profile
 
-export ZLIB_URL=http://zlib.net/zlib-1.2.8.tar.gz
-export OPENSSL_URL=https://www.openssl.org/source/openssl-1.0.2-latest.tar.gz
-export CURL_GIT=https://github.com/curl/curl.git
-export LIBXML2_GIT=git://git.gnome.org/libxml2
-export CORELIBS_FOUNDATION_GIT=https://github.com/SwiftJava/swift-corelibs-foundation.git
+export DOWNLOAD_URL_ZLIB=http://zlib.net/zlib-1.2.8.tar.gz
+export DOWNLOAD_URL_OPENSSL=https://www.openssl.org/source/openssl-1.0.2-latest.tar.gz
+export GIT_URL_CURL=https://github.com/curl/curl.git
+export GIT_URL_LIBXML2=git://git.gnome.org/libxml2
+export GIT_URL_CORELIBS_FOUNDATION=https://github.com/apple/swift-corelibs-foundation.git
 
 export TOOLCHAIN=`realpath ./android-standalone-toolchain`
 export SYSROOT=$TOOLCHAIN/sysroot
@@ -51,7 +51,7 @@ pushd $TOOLCHAIN/sysroot
 	# Download and compile zlib
 
 	mkdir src/zlib
-	wget $ZLIB_URL -O downloads/zlib.tar.gz
+	wget $DOWNLOAD_URL_ZLIB -O downloads/zlib.tar.gz
 	tar -xvf downloads/zlib.tar.gz -C src/zlib --strip-components=1
 
 	pushd src/zlib
@@ -63,7 +63,7 @@ pushd $TOOLCHAIN/sysroot
 	# Download and compile openssl
 
 	mkdir src/openssl
-	wget $OPENSSL_URL -O downloads/openssl.tar.gz # 1.0.2h was the current version at the moment where this script has been written 
+	wget $DOWNLOAD_URL_OPENSSL -O downloads/openssl.tar.gz # 1.0.2h was the current version at the moment where this script has been written 
 	tar -xvf downloads/openssl.tar.gz -C src/openssl --strip-components=1
 
 	pushd src/openssl
@@ -86,7 +86,7 @@ pushd $TOOLCHAIN/sysroot
 
 	# Download and compile curl
 
-	git clone $CURL_GIT src/curl
+	git clone $GIT_URL_CURL src/curl
 
 	pushd src/curl
 		autoreconf -i
@@ -97,7 +97,7 @@ pushd $TOOLCHAIN/sysroot
 
 	# Download and compile libxml2
 
-	git clone git://git.gnome.org/libxml2 src/libxml2
+	git clone $GIT_URL_LIBXML2 src/libxml2
 
 	pushd src/libxml2
 		autoreconf -i
@@ -137,7 +137,7 @@ pushd $TOOLCHAIN/sysroot
 	pushd $SWIFT_ANDROID_SOURCE
 
 		rm -r swift-corelibs-foundation
-		git clone $CORELIBS_FOUNDATION_GIT swift-corelibs-foundation
+		git clone $GIT_URL_CORELIBS_FOUNDATION swift-corelibs-foundation
 
 		pushd swift-corelibs-foundation
 
