@@ -2,7 +2,7 @@
 #
 # Builds Swift compiler for Android targets based on the last source cloned
 #
-# Version 0.2 (2016-09-23)
+# Version 0.3 (2016-12-01)
 #
 # Dependencies: ndk @ google/android
 #               libiconv-libicu-android @ github/SwiftAndroid
@@ -27,4 +27,8 @@ popd
 ln -s $NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-ld.gold /usr/bin/armv7-none-linux-android-ld.gold
 ln -s $NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-ld.gold /usr/bin/armv7-none-linux-androideabi-ld.gold
 
-echo 'export SWIFT_ANDROID_BUILDPATH="'$SWIFT_ANDROID_SOURCE/build/Ninja-ReleaseAssert'"' >> .profile
+export SWIFT_ANDROID_BUILDPATH="$SWIFT_ANDROID_SOURCE/build/Ninja-ReleaseAssert"
+echo 'export SWIFT_ANDROID_BUILDPATH="'$SWIFT_ANDROID_BUILDPATH'"' >> .profile
+
+# Installation seems to be broken on current master?
+cp -r $SWIFT_ANDROID_BUILDPATH/swift-linux-x86_64/lib/* /usr/local/lib/
