@@ -1,21 +1,14 @@
 #### swifty-robot-environment ####
 #
-# Builds modified version of build_corelibs_libdispatch. 
-# Waiting for (#162) (https://github.com/apple/swift-corelibs-libdispatch/pull/162)
-#
-# Version 0.3 (2016-11-27)
+# Version 0.4 (2016-12-01)
 #
 # Dependencies: swift @ github/apple
-#               swift-corelibs-libdispatch @ github/gonzalolarralde
+#               swift-corelibs-libdispatch @ github/apple
 #
 
 source .profile
 
 pushd $SWIFT_ANDROID_SOURCE
-
-	# Remove default libdispatch implementation and fetch the version with android support
-	rm -r swift-corelibs-libdispatch
-	git clone https://github.com/gonzalolarralde/swift-corelibs-libdispatch -b android-support --recursive
 
 	pushd swift-corelibs-libdispatch
 
@@ -36,8 +29,9 @@ pushd $SWIFT_ANDROID_SOURCE
 		make
 		make install
 
-		mv /usr/local/lib/swift/android/ /usr/local/lib/swift/android
-		mv /usr/local/lib/swift/android/x86_64/ /usr/local/lib/swift/android/armv7
+		# Resulting paths are not taking the architecture and OS correctly.
+		mv /usr/local/lib/swift/linux/x86_64/Dispatch* /usr/local/lib/swift/android/armv7
+		mv /usr/local/lib/swift/linux/libdispatch* /usr/local/lib/swift/android
 
 	popd
 
