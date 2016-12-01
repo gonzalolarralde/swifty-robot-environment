@@ -3,15 +3,15 @@
 # Builds modified version of build_corelibs_foundation by John Holdsworth (tw:@Injection4Xcode)
 # Waiting for (#622) (https://github.com/apple/swift-corelibs-foundation/pull/622)
 #
-# Version 0.3 (2016-11-27)
+# Version 0.4 (2016-12-01)
 #
 # Dependencies: swift @ github/apple
-#               swift-corelibs-libdispatch @ github/gonzalolarralde
+#               swift-corelibs-libdispatch @ github/apple
 #               zlib @ zlib.net
 #               openssl @ openssl.org
 #               curl @ github/curl
 #               libxml2 @ git/gnome
-#               swift-corelibs-foundation @ github/apple
+#               swift-corelibs-foundation @ github/gonzalolarralde
 #
 
 source .profile
@@ -20,7 +20,7 @@ export DOWNLOAD_URL_ZLIB=http://zlib.net/zlib-1.2.8.tar.gz
 export DOWNLOAD_URL_OPENSSL=https://www.openssl.org/source/openssl-1.0.2-latest.tar.gz
 export GIT_URL_CURL=https://github.com/curl/curl.git
 export GIT_URL_LIBXML2=git://git.gnome.org/libxml2
-export GIT_URL_CORELIBS_FOUNDATION=https://github.com/apple/swift-corelibs-foundation.git
+export GIT_URL_CORELIBS_FOUNDATION=https://github.com/gonzalolarralde/swift-corelibs-foundation.git
 
 export TOOLCHAIN=`realpath ./android-standalone-toolchain`
 export SYSROOT=$TOOLCHAIN/sysroot
@@ -137,7 +137,7 @@ pushd $TOOLCHAIN/sysroot
 	pushd $SWIFT_ANDROID_SOURCE
 
 		rm -r swift-corelibs-foundation
-		git clone $GIT_URL_CORELIBS_FOUNDATION swift-corelibs-foundation
+		git clone $GIT_URL_CORELIBS_FOUNDATION swift-corelibs-foundation -b build_ldflags_overwrite_issue
 
 		pushd swift-corelibs-foundation
 
@@ -157,7 +157,7 @@ pushd $TOOLCHAIN/sysroot
 				PREFIX="/usr/" \
 				CFLAGS="-DDEPLOYMENT_TARGET_ANDROID -DDEPLOYMENT_ENABLE_LIBDISPATCH --sysroot=$NDK/platforms/android-21/arch-arm -I$LIBICONV_ANDROID/armeabi-v7a/include -I${SDKROOT}/lib/swift -I$NDK/sources/android/support/include -I$SYSROOT/usr/include" \
 				SWIFTCFLAGS="-DDEPLOYMENT_TARGET_ANDROID -DDEPLOYMENT_ENABLE_LIBDISPATCH -I$NDK/platforms/android-21/arch-arm/usr/include -L /usr/local/lib/swift/android -I /usr/local/lib/swift/android/armv7" \
-				LDFLAGS="-fuse-ld=gold --sysroot=$NDK/platforms/android-21/arch-arm -L$NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/lib/gcc/arm-linux-androideabi/4.9.x -L$LIBICONV_ANDROID/armeabi-v7a -L$SWIFT_ANDROID_BUILDPATH/swift-linux-x86_64/lib/swift/android -L$SYSROOT/usr/lib -ldispatch" \
+				LDFLAGS="-fuse-ld=gold --sysroot=$NDK/platforms/android-21/arch-arm -L$NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/lib/gcc/arm-linux-androideabi/4.9.x -L$LIBICONV_ANDROID/armeabi-v7a -L/usr/local/lib/swift/android -L$SYSROOT/usr/lib -ldispatch " \
 				./configure \
 					Release \
 					--target=armv7-none-linux-androideabi \
