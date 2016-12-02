@@ -3,7 +3,7 @@
 # Builds modified version of build_corelibs_foundation by John Holdsworth (tw:@Injection4Xcode)
 # Waiting for (#622) (https://github.com/apple/swift-corelibs-foundation/pull/622)
 #
-# Version 0.4 (2016-12-01)
+# Version 0.5 (2016-12-02)
 #
 # Dependencies: swift @ github/apple
 #               swift-corelibs-libdispatch @ github/apple
@@ -11,7 +11,7 @@
 #               openssl @ openssl.org
 #               curl @ github/curl
 #               libxml2 @ git/gnome
-#               swift-corelibs-foundation @ github/gonzalolarralde
+#               swift-corelibs-foundation @ github/apple
 #
 
 source .profile
@@ -20,7 +20,7 @@ export DOWNLOAD_URL_ZLIB=http://zlib.net/zlib-1.2.8.tar.gz
 export DOWNLOAD_URL_OPENSSL=https://www.openssl.org/source/openssl-1.0.2-latest.tar.gz
 export GIT_URL_CURL=https://github.com/curl/curl.git
 export GIT_URL_LIBXML2=git://git.gnome.org/libxml2
-export GIT_URL_CORELIBS_FOUNDATION=https://github.com/gonzalolarralde/swift-corelibs-foundation.git
+export GIT_URL_CORELIBS_FOUNDATION=https://github.com/apple/swift-corelibs-foundation.git
 
 export TOOLCHAIN=`realpath ./android-standalone-toolchain`
 export SYSROOT=$TOOLCHAIN/sysroot
