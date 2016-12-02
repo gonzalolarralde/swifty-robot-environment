@@ -136,8 +136,8 @@ pushd $TOOLCHAIN/sysroot
 
 	pushd $SWIFT_ANDROID_SOURCE
 
-		rm -r swift-corelibs-foundation
-		git clone $GIT_URL_CORELIBS_FOUNDATION swift-corelibs-foundation -b build_ldflags_overwrite_issue
+		# rm -r swift-corelibs-foundation
+		# git clone $GIT_URL_CORELIBS_FOUNDATION swift-corelibs-foundation
 
 		pushd swift-corelibs-foundation
 
