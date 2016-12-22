@@ -67,11 +67,20 @@ pushd $TOOLCHAIN/sysroot
 	tar -xvf downloads/openssl.tar.gz -C src/openssl --strip-components=1
 
 	pushd src/openssl
+
+		if [ ! -f /usr/local/bin/perl ]; then
+			ln -s /usr/bin/perl /usr/local/bin/perl
+		fi
+
 		export CPPFLAGS="-mthumb -mfloat-abi=softfp -mfpu=vfp -march=armv7  -DANDROID"
 		# -mandroid option seems to be only for gcc compilers. It was causing troubles with clang
 		sed "s/-mandroid //g" Configure > Configure.new && chmod +x Configure.new 
 
 		./Configure.new android-armv7 no-asm no-shared zlib --static --with-zlib-include=$SYSROOT/usr --with-zlib-lib=$SYSROOT/usr --prefix=$SYSROOT/usr --sysroot=$SYSROOT
+
+		pushd crypto
+			make buildinf.h
+		popd
 
 		make depend build_crypto build_ssl -j 4
 
