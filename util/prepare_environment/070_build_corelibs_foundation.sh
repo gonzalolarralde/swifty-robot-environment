@@ -3,7 +3,7 @@
 # Builds modified version of build_corelibs_foundation by John Holdsworth (tw:@Injection4Xcode)
 # Waiting for (#622) (https://github.com/apple/swift-corelibs-foundation/pull/622)
 #
-# Version 0.6 (2016-12-22)
+# Version 0.7 (2016-12-30)
 #
 # Dependencies: swift @ github/apple
 #               swift-corelibs-libdispatch @ github/apple
@@ -190,9 +190,6 @@ pushd $TOOLCHAIN/sysroot
 	popd
 
 popd
-
-# Remove toolchain
-rm -r $TOOLCHAIN
 
 export SYSROOT=
 export TOOLCHAIN=
