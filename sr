@@ -1,0 +1,19 @@
+#!/bin/bash
+
+DIR="${BASH_SOURCE%/*}"
+
+source $DIR/util/config.sh
+source $DIR/util/functions.sh
+
+case $1 in
+	pull-image ) docker pull $SWIFTY_ROBOT_IMAGE ;;
+	run ) sr_run ${@:2} ;;
+	shell ) sr_shell ;;
+	* ) if sr_has_command $@; then
+		sr_run_command $@
+		exit $?
+	    else
+		echo "Swifty Robot: Unknown command '$1'" >&2
+		exit 127 
+	    fi ;;
+esac

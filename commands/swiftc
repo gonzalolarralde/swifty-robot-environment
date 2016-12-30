@@ -1,0 +1,10 @@
+#!/bin/bash
+
+/root/swift-source/build/Ninja-ReleaseAssert/swift-linux-x86_64/bin/swiftc \
+	-target armv7-none-linux-androideabi \
+	-sdk /root/ndk/android-ndk-r13b/platforms/android-21/arch-arm \
+	-L/root/ndk/android-ndk-r13b/sources/cxx-stl/llvm-libc++/libs/armeabi-v7a \
+	-L/root/ndk/android-ndk-r13b/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/lib/gcc/arm-linux-androideabi/4.9.x \
+	-Xcc -fPIC -Xlinker -fpie -Xlinker -shared \
+	$@
+
