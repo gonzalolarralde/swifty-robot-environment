@@ -2,7 +2,7 @@
 #
 # Builds Swift compiler for Android targets based on the last source cloned
 #
-# Version 0.3 (2016-12-01)
+# Version 0.4 (2016-12-30)
 #
 # Dependencies: ndk @ google/android
 #               libiconv-libicu-android @ github/SwiftAndroid
@@ -20,7 +20,11 @@ pushd $SWIFT_ANDROID_SOURCE/swift
 		--android-icu-uc $LIBICONV_ANDROID/armeabi-v7a \
 		--android-icu-uc-include $LIBICONV_ANDROID/armeabi-v7a/icu/source/common \
 		--android-icu-i18n $LIBICONV_ANDROID/armeabi-v7a \
-		--android-icu-i18n-include $LIBICONV_ANDROID/armeabi-v7a/icu/source/i18n
+		--android-icu-i18n-include $LIBICONV_ANDROID/armeabi-v7a/icu/source/i18n \
+		--llbuild \
+		--lldb \
+		--swiftpm \
+		--xctest
 popd
 
 # I don't like this. Maybe if SYSROOT were taken into account a better way of handling this could be figured out. In the meantime...
