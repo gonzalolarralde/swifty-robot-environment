@@ -1,19 +1,21 @@
 #!/bin/bash
 
-DIR="${BASH_SOURCE%/*}"
+SR_DIR="${BASH_SOURCE%/*}"
 
-source $DIR/util/config.sh
-source $DIR/util/functions.sh
+source $SR_DIR/util/config.sh
+source $SR_DIR/util/functions.sh
 
 case $1 in
-	pull-image ) docker pull $SWIFTY_ROBOT_IMAGE ;;
+	self-update ) sr_self_update ;;
+	pull-image ) sr_pull_image ;;
+	help ) sr_help ;;
+	version ) sr_version ;;
 	run ) sr_run ${@:2} ;;
 	shell ) sr_shell ;;
 	* ) if sr_has_command $@; then
 		sr_run_command $@
-		exit $?
+		exit $? # We really want to finish here with whatever was the execution result. Just in case we forgot this in the future and add a line below the case statement
 	    else
-		echo "Swifty Robot: Unknown command '$1'" >&2
-		exit 127 
+		sr_err "Swifty Robot: Unknown command '$1'. Try with 'help'." >&2
 	    fi ;;
 esac

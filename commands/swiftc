@@ -1,4 +1,5 @@
 #!/bin/bash
+SR_COMMAND_DESC="Execute swiftc compiler with Android dependencies include paths and target"
 
 /root/swift-source/build/Ninja-ReleaseAssert/swift-linux-x86_64/bin/swiftc \
 	-target armv7-none-linux-androideabi \
