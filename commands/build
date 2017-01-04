@@ -1,0 +1,41 @@
+#!/bin/bash
+SR_COMMAND_DESC="Trigger the build process using the Swift Package Manager"
+
+source /etc/profile
+
+SR_TRIPLE=armv7-none-linux-androideabi
+SR_ARCH=ARMV7A
+
+TOOLCHAIN="SR_ANDROID_${SR_ARCH}_TOOLCHAIN"
+SDK="SR_ANDROID_${SR_ARCH}_SDK"
+GCC_LIB="SR_ANDROID_${SR_ARCH}_GCC_LIB"
+
+####### TARGET OPTIONS NOT PASSED TO CLANG ISSUE PATCH #######
+
+### An issue on swiftpm requires clang to monkey-patch the cross compiling parameters
+
+mv /usr/bin/clang /usr/bin/@clang
+cat > /usr/bin/clang <<EOF
+#!/bin/bash
+
+PARAMS=\$(echo -n \$@ | sed 's~-Xlinker -fuse-ld=ANDROID_TARGET~-target $SR_TRIPLE -B${!TOOLCHAIN}/bin --sysroot=${!SDK} -fuse-ld=gold~g')
+/usr/bin/@clang \$PARAMS
+
+EOF
+chmod +x /usr/bin/clang
+
+####### /TARGET OPTIONS NOT PASSED TO CLANG ISSUE PATCH #######
+
+$SR_SWIFT_BIN/swift build \
+	-Xswiftc -target -Xswiftc $SR_TRIPLE \
+	-Xswiftc -tools-directory -Xswiftc ${!TOOLCHAIN}/bin \
+	-Xswiftc -sdk -Xswiftc ${!SDK} \
+	-Xswiftc -L${!SDK}/usr/lib \
+	-Xcc -target -Xcc $SR_TRIPLE \
+	-Xcc --sysroot=${!SDK} \
+        -Xcc -fPIC -Xlinker -fpie -Xlinker -shared \
+	-Xlinker -fuse-ld=ANDROID_TARGET \
+	-Xlinker -L${!GCC_LIB} \
+	-Xlinker -L${!SDK}/usr/lib \
+	$@
+
