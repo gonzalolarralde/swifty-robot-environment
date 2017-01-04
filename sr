@@ -11,7 +11,7 @@ case $1 in
 	help ) sr_help ;;
 	version ) sr_version ;;
 	run ) sr_run ${@:2} ;;
-	shell ) sr_shell ;;
+	shell ) sr_shell ${@:2} ;;
 	* ) if sr_has_command $@; then
 		sr_run_command $@
 		exit $? # We really want to finish here with whatever was the execution result. Just in case we forgot this in the future and add a line below the case statement

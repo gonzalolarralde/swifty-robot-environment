@@ -52,7 +52,7 @@ function sr_run {
 }
 
 function sr_shell {
-	sr_call_docker run --rm -ti $SR_IMAGE /bin/bash
+	sr_call_docker run --rm -ti $SR_IMAGE /bin/bash -l $@
 }
 
 ### Commands ###
