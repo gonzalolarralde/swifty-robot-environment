@@ -2,7 +2,7 @@
 #
 # Installs current NDK version and removes unused toolchains and platforms
 #
-# Version 0.3 (2016-11-27)
+# Version 0.4 (2017-04-01)
 #
 # Dependencies: ndk @ google/android
 #
@@ -10,7 +10,7 @@
 source .profile
 
 mkdir ndk
-wget https://dl.google.com/android/repository/android-ndk-r13b-linux-x86_64.zip -O ndk.zip
+wget https://dl.google.com/android/repository/android-ndk-r14b-linux-x86_64.zip -O ndk.zip
 unzip ndk.zip -d ./ndk
 rm ndk.zip
 
@@ -25,5 +25,9 @@ pushd $NDK_DIR
 		rm -r android-9 android-12 android-13 android-14 android-15 android-17 android-18 android-19 android-22 android-23 android-24
 	popd
 popd
+
+# Linker binaries for android triple added to an accessible path
+ln -s $NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-ld.gold /usr/bin/armv7-none-linux-android-ld.gold
+ln -s $NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-ld.gold /usr/bin/armv7-none-linux-androideabi-ld.gold
 
 echo 'export NDK="'`realpath $NDK_DIR`'"' >> .profile

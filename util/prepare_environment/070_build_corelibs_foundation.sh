@@ -1,13 +1,11 @@
 #### swifty-robot-environment ####
 #
 # Builds modified version of build_corelibs_foundation by John Holdsworth (tw:@Injection4Xcode)
-# Waiting for (#622) (https://github.com/apple/swift-corelibs-foundation/pull/622)
 #
-# Version 0.7 (2016-12-30)
+# Version 0.8 (2017-04-01)
 #
 # Dependencies: swift @ github/apple
 #               swift-corelibs-libdispatch @ github/apple
-#               zlib @ zlib.net
 #               openssl @ openssl.org
 #               curl @ github/curl
 #               libxml2 @ git/gnome
@@ -16,7 +14,6 @@
 
 source .profile
 
-export DOWNLOAD_URL_ZLIB=http://zlib.net/zlib-1.2.8.tar.gz
 export DOWNLOAD_URL_OPENSSL=https://www.openssl.org/source/openssl-1.0.2-latest.tar.gz
 export GIT_URL_CURL=https://github.com/curl/curl.git
 export GIT_URL_LIBXML2=git://git.gnome.org/libxml2
@@ -42,23 +39,16 @@ pushd $TOOLCHAIN/sysroot
 	export NM=arm-linux-androideabi-nm
 	export STRIP=arm-linux-androideabi-strip
 	export CHOST=arm-linux-androideabi
-	export CXXFLAGS="-std=c++14 -Wno-error=unused-command-line-argument"
+	export ARCH_FLAGS="-march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16"
+	export ARCH_LINK="-march=armv7-a -Wl,--fix-cortex-a8"
+	export CPPFLAGS=" ${ARCH_FLAGS} -fpic -ffunction-sections -funwind-tables -fstack-protector -fno-strict-aliasing "
+	export CXXFLAGS=" ${ARCH_FLAGS} -fpic -ffunction-sections -funwind-tables -fstack-protector -fno-strict-aliasing -frtti -fexceptions -std=c++11 -Wno-error=unused-command-line-argument "
+	export CFLAGS=" ${ARCH_FLAGS} -fpic -ffunction-sections -funwind-tables -fstack-protector -fno-strict-aliasing "
+	export LDFLAGS=" ${ARCH_LINK} "
 
 	# Create destination directories
 
 	mkdir downloads src
-
-	# Download and compile zlib
-
-	mkdir src/zlib
-	wget $DOWNLOAD_URL_ZLIB -O downloads/zlib.tar.gz
-	tar -xvf downloads/zlib.tar.gz -C src/zlib --strip-components=1
-
-	pushd src/zlib
-		./configure --static --prefix=$SYSROOT/usr
-		make
-		make install
-	popd
 
 	# Download and compile openssl
 
@@ -72,7 +62,6 @@ pushd $TOOLCHAIN/sysroot
 			ln -s /usr/bin/perl /usr/local/bin/perl
 		fi
 
-		export CPPFLAGS="-mthumb -mfloat-abi=softfp -mfpu=vfp -march=armv7  -DANDROID"
 		# -mandroid option seems to be only for gcc compilers. It was causing troubles with clang
 		sed "s/-mandroid //g" Configure > Configure.new && chmod +x Configure.new 
 
@@ -121,7 +110,6 @@ pushd $TOOLCHAIN/sysroot
 
 	# Clean env variables
 
-	export LDFLAGS=
 	export CC=
 	export CXX=
 	export AR=
@@ -131,9 +119,11 @@ pushd $TOOLCHAIN/sysroot
 	export NM=
 	export STRIP=
 	export CHOST=
-	export CXXFLAGS=
 	export CPPFLAGS=
-	
+	export CXXFLAGS=
+	export CFLAGS=
+	export LDFLAGS=
+
 	# Move dispatch public and private headers to the directory foundation is expecting to get it
 	
 	mkdir -p $SYSROOT/usr/include/dispatch
@@ -151,7 +141,7 @@ pushd $TOOLCHAIN/sysroot
 		pushd swift-corelibs-foundation
 
 			# Libfoundation script is not completely prepared to handle cross compilation yet.
-			ln -s $SWIFT_ANDROID_BUILDPATH/swift-linux-x86_64/lib/swift/android/armv7 $SWIFT_ANDROID_BUILDPATH/swift-linux-x86_64/lib/swift/linux/armv7
+			ln -s $SWIFT_ANDROID_BUILDPATH/swift-linux-x86_64/lib/swift $SYSROOT/usr/lib/
 
 			# Search path for curl seems to be wrong in foundation
 			ln -s $SYSROOT/usr/include/curl $SYSROOT/usr/include/curl/curl
@@ -167,12 +157,14 @@ pushd $TOOLCHAIN/sysroot
 				CFLAGS="-DDEPLOYMENT_TARGET_ANDROID -DDEPLOYMENT_ENABLE_LIBDISPATCH --sysroot=$NDK/platforms/android-21/arch-arm -I$LIBICONV_ANDROID/armeabi-v7a/include -I${SDKROOT}/lib/swift -I$NDK/sources/android/support/include -I$SYSROOT/usr/include -I$SWIFT_ANDROID_SOURCE/swift-corelibs-foundation/closure" \
 				SWIFTCFLAGS="-DDEPLOYMENT_TARGET_ANDROID -DDEPLOYMENT_ENABLE_LIBDISPATCH -I$NDK/platforms/android-21/arch-arm/usr/include -L /usr/local/lib/swift/android -I /usr/local/lib/swift/android/armv7" \
 				LDFLAGS="-fuse-ld=gold --sysroot=$NDK/platforms/android-21/arch-arm -L$NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/lib/gcc/arm-linux-androideabi/4.9.x -L$LIBICONV_ANDROID/armeabi-v7a -L/usr/local/lib/swift/android -L$SYSROOT/usr/lib -ldispatch " \
+				SDKROOT=$SYSROOT/usr \
 				./configure \
 					Release \
 					--target=armv7-none-linux-androideabi \
+					--sysroot=$SYSROOT \
 					-DXCTEST_BUILD_DIR=$SWIFT_ANDROID_BUILDPATH/xctest-linux-x86_64 \
 					-DLIBDISPATCH_SOURCE_DIR=$SWIFT_ANDROID_SOURCE/swift-corelibs-libdispatch \
-					-DLIBDISPATCH_BUILD_DIR=$SWIFT_ANDROID_BUILDPATH/libdispatch-linux-x86_64
+					-DLIBDISPATCH_BUILD_DIR=$SWIFT_ANDROID_SOURCE/swift-corelibs-libdispatch
 
 			# Prepend SYSROOT env variable to ninja.build script
 			# SYSROOT is not being passed from build.py / script.py to the ninja file yet
@@ -182,6 +174,13 @@ pushd $TOOLCHAIN/sysroot
 			mv build.ninja.new build.ninja
 
 			/usr/bin/ninja
+			
+			# There's no installation script for foundation yet, so the installation needs to be done manually.
+			# Apparently the installation for the main script is in swift repo.
+			cp $SWIFT_ANDROID_BUILDPATH/foundation-linux-x86_64/Foundation/libFoundation.so $SWIFT_INSTALLATION_PATH/usr/lib/swift/android/
+			cp $SWIFT_ANDROID_BUILDPATH/foundation-linux-x86_64/Foundation/Foundation.swift* $SWIFT_INSTALLATION_PATH/usr/lib/swift/android/armv7/
+			cp $SYSROOT/usr/lib/libxml2.* $SWIFT_INSTALLATION_PATH/usr/lib/swift/android/
+			cp $SYSROOT/usr/lib/libcurl.* $SWIFT_INSTALLATION_PATH/usr/lib/swift/android/	
 
 			# Undo those nasty changes
 			rm $SWIFT_ANDROID_BUILDPATH/swift-linux-x86_64/lib/swift/linux/armv7
