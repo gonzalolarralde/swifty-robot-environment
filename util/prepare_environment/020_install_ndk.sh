@@ -2,7 +2,7 @@
 #
 # Installs current NDK version and removes unused toolchains and platforms
 #
-# Version 0.4 (2017-04-01)
+# Version 0.5 (2017-04-02)
 #
 # Dependencies: ndk @ google/android
 #
@@ -14,9 +14,9 @@ wget https://dl.google.com/android/repository/android-ndk-r14b-linux-x86_64.zip 
 unzip ndk.zip -d ./ndk
 rm ndk.zip
 
-export NDK_DIR=`ls -d -1 ./ndk/* | head -1`
+export NDK=`ls -d -1 ./ndk/* | head -1`
 
-pushd $NDK_DIR
+pushd $NDK
 	pushd toolchains
 		rm -r aarch64-linux-android-4.9 mips64el-linux-android-4.9 mipsel-linux-android-4.9 x86-4.9 x86_64-4.9
 	popd
@@ -30,4 +30,4 @@ popd
 ln -s $NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-ld.gold /usr/bin/armv7-none-linux-android-ld.gold
 ln -s $NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-ld.gold /usr/bin/armv7-none-linux-androideabi-ld.gold
 
-echo 'export NDK="'`realpath $NDK_DIR`'"' >> .profile
+echo 'export NDK="'`realpath $NDK`'"' >> .profile
