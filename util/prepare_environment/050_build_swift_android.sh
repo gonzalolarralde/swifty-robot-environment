@@ -11,7 +11,7 @@
 
 source .profile
 
-export SWIFT_INSTALLATION_PATH="`realpath ./swift-source`"
+export SWIFT_INSTALLATION_PATH="`realpath ./swift-install`"
 
 mkdir -p $SWIFT_INSTALLATION_PATH
 
