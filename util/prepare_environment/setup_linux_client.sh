@@ -38,7 +38,9 @@ $ANDROID_HOME/tools/bin/sdkmanager "ndk-bundle" "platforms;android-25" "build-to
 
 sudo ln -s $ANDROID_HOME/ndk-bundle /usr/android/ndk
 sudo ln -s ndk/platforms/android-21/arch-arm /usr/android/platform
-sudo mv /usr/bin/ld.gold /usr/bin/ld.gold.save
+if [[ ! -f /usr/bin/ld.gold.save ]]; then
+    sudo mv -i /usr/bin/ld.gold /usr/bin/ld.gold.save
+fi
 sudo bash -c 'cat >/usr/bin/ld.gold' cat <<EOF &&
 #!/bin/bash
 
