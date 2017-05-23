@@ -58,7 +58,7 @@ cat <<EOF >>~/.bashrc &&
 # Changes for Android Swift toolchain
 export JAVA_HOME="$JAVA_HOME"
 export ANDROID_HOME="$ANDROID_HOME"
-export PATH="$PWD/usr/bin:\$HOME/Android/platform-tools:\$PATH"
+export PATH="$PWD/usr/bin:\$ANDROID_HOME/platform-tools:\$PATH"
 EOF
 
 cat <<EOF
