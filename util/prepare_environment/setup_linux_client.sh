@@ -41,13 +41,13 @@ ln -s ndk/platforms/android-21/arch-arm /usr/android/platform
 if [[ ! -f /usr/bin/ld.gold.save ]]; then
     sudo mv -i /usr/bin/ld.gold /usr/bin/ld.gold.save
 fi
-sudo bash -c 'cat >/usr/bin/ld.gold' cat <<EOF &&
+sudo bash -c 'cat >/usr/bin/ld.gold' cat <<'EOF' &&
 #!/bin/bash
 
 if [[ "$*" =~ "androideabi" ]]; then
-        /usr/android/ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/arm-linux-androideabi/bin/ld.gold "$@"
+	/usr/android/ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/arm-linux-androideabi/bin/ld.gold "$@"
 else
-        /usr/bin/ld.gold.save "$@"
+	/usr/bin/ld.gold.save "$@"
 fi
 
 exit $?
