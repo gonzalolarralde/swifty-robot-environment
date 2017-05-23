@@ -36,8 +36,8 @@ export JAVA_HOME="${JAVA_HOME:-$(echo /usr/java/*)}" &&
 $ANDROID_HOME/tools/bin/sdkmanager --licenses &&
 $ANDROID_HOME/tools/bin/sdkmanager "ndk-bundle" "platforms;android-25" "build-tools;25.0.3" "platform-tools" &&
 
-sudo ln -s $ANDROID_HOME/ndk-bundle /usr/android/ndk
-sudo ln -s ndk/platforms/android-21/arch-arm /usr/android/platform
+ln -s $ANDROID_HOME/ndk-bundle /usr/android/ndk
+ln -s ndk/platforms/android-21/arch-arm /usr/android/platform
 if [[ ! -f /usr/bin/ld.gold.save ]]; then
     sudo mv -i /usr/bin/ld.gold /usr/bin/ld.gold.save
 fi
