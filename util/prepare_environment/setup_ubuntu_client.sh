@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 #
 # Script to setup Ubuntu 16.0.4 environment to use Android toolchain
 #
@@ -14,6 +14,23 @@ sudo apt-get -y update && sudo apt-get install -y \
 	libbsd-dev libedit-dev libxml2-dev libsqlite3-dev swig libpython-dev \
 	libncurses5-dev pkg-config libblocksruntime-dev libcurl4-openssl-dev \
 	autoconf automake libtool curl wget unzip lib32stdc++6 lib32z1 rpl &&
+
+if [[ ! -f /usr/bin/ld.gold.save ]]; then
+    sudo mv -i /usr/bin/ld.gold /usr/bin/ld.gold.save
+fi
+sudo bash -c 'cat >/usr/bin/ld.gold' cat <<'EOF' &&
+#!/bin/bash
+
+if [[ "$*" =~ "androideabi" ]]; then
+	/usr/android/ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/arm-linux-androideabi/bin/ld.gold "$@"
+else
+	/usr/bin/ld.gold.save "$@"
+fi
+
+exit $?
+EOF
+
+sudo chmod 755 /usr/bin/ld.gold &&
 
 cat <<EOF &&
 
@@ -34,27 +51,14 @@ read X &&
 export JAVA_HOME="${JAVA_HOME:-$(echo /usr/java/*)}" &&
 
 $ANDROID_HOME/tools/bin/sdkmanager --licenses &&
+cat <<EOF &&
+
+Downloading Android SDK components, please wait...
+EOF
 $ANDROID_HOME/tools/bin/sdkmanager "ndk-bundle" "platforms;android-25" "build-tools;25.0.3" "platform-tools" &&
 
 ln -s $ANDROID_HOME/ndk-bundle /usr/android/ndk
 ln -s ndk/platforms/android-21/arch-arm /usr/android/platform
-if [[ ! -f /usr/bin/ld.gold.save ]]; then
-    sudo mv -i /usr/bin/ld.gold /usr/bin/ld.gold.save
-fi
-sudo bash -c 'cat >/usr/bin/ld.gold' cat <<'EOF' &&
-#!/bin/bash
-
-if [[ "$*" =~ "androideabi" ]]; then
-	/usr/android/ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/arm-linux-androideabi/bin/ld.gold "$@"
-else
-	/usr/bin/ld.gold.save "$@"
-fi
-
-exit $?
-EOF
-
-sudo chmod 755 /usr/bin/ld.gold &&
-
 cat <<EOF >>~/.bashrc &&
 
 # Changes for Android Swift toolchain
@@ -63,14 +67,18 @@ export ANDROID_HOME="$ANDROID_HOME"
 export PATH="$PWD/usr/bin:\$ANDROID_HOME/platform-tools:\$PATH"
 EOF
 
+cd /tmp &&
+git clone https://github.com/SwiftJava/swift-android-gradle &&
+cd swift-android-gradle && ./gradlew install &&
+
 cat <<EOF
 
 Instalation complete. type source ~/.bashrc to begin.
 
-An example project is available at:
-https://github.com/SwiftJava/swift-android-samples
+An example project is available by typing:
 
-To build this project you must first install the gradle plugin:
-https://github.com/SwiftJava/swift-android-gradle
+git clone https://github.com/SwiftJava/swift-android-samples
+cd swift-android-samples/swifthello
+./gradlew installDebug
 
 EOF

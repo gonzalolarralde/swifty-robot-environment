@@ -77,9 +77,10 @@ pushd $TOOLCHAIN/sysroot
 			cp $SWIFT_ANDROID_BUILDPATH/foundation-linux-x86_64/Foundation/Foundation.swift* $SWIFT_INSTALLATION_PATH/usr/lib/swift/android/armv7/
 			cp $SYSROOT/usr/lib/libxml2.* $SWIFT_INSTALLATION_PATH/usr/lib/swift/android/
 			cp $SYSROOT/usr/lib/libcurl.* $SWIFT_INSTALLATION_PATH/usr/lib/swift/android/	
-
+			
 			# Undo those nasty changes
 			rm $SWIFT_ANDROID_BUILDPATH/swift-linux-x86_64/lib/swift/linux/armv7
+			cp ../../setup_ubuntu_client.sh $SWIFT_INSTALLATION_PATH
 		popd
 
 	popd
