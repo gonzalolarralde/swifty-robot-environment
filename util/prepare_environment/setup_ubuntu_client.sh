@@ -1,6 +1,6 @@
 #!/bin/bash -x
 #
-# Script to setup Ubuntu 16.0.4 environment to use Android toolchain
+# Setup Ubuntu 16.0.4 environment to use Android toolchain
 #
 
 export ANDROID_HOME=${ANDROID_HOME:-~/Android}
@@ -9,28 +9,16 @@ cd $(dirname $0)
 mkdir -p $ANDROID_HOME &&
 sudo mkdir -p /usr/java /usr/android &&
 sudo chmod 777 /usr/java /usr/android &&
+sudo ln -s $ANDROID_HOME/ndk-bundle /usr/android/ndk
+sudo ln -s ndk/platforms/android-21/arch-arm /usr/android/platform
+sudo ln -s /usr/android/ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-ld.gold /usr/bin/armv7-none-linux-android-ld.gold
+sudo ln -s /usr/android/ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-ld.gold /usr/bin/armv7-none-linux-androideabi-ld.gold
+
 sudo apt-get -y update && sudo apt-get install -y \
 	git cmake ninja-build clang python uuid-dev libicu-dev icu-devtools \
 	libbsd-dev libedit-dev libxml2-dev libsqlite3-dev swig libpython-dev \
 	libncurses5-dev pkg-config libblocksruntime-dev libcurl4-openssl-dev \
 	autoconf automake libtool curl wget unzip lib32stdc++6 lib32z1 rpl &&
-
-if [[ ! -f /usr/bin/ld.gold.save ]]; then
-    sudo mv -i /usr/bin/ld.gold /usr/bin/ld.gold.save
-fi
-sudo bash -c 'cat >/usr/bin/ld.gold' cat <<'EOF' &&
-#!/bin/bash
-
-if [[ "$*" =~ "androideabi" ]]; then
-	/usr/android/ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/arm-linux-androideabi/bin/ld.gold "$@"
-else
-	/usr/bin/ld.gold.save "$@"
-fi
-
-exit $?
-EOF
-
-sudo chmod 755 /usr/bin/ld.gold &&
 
 cat <<EOF &&
 
@@ -46,7 +34,7 @@ sdk-tools-linux-NNNNNNN.zip. Extract the archive into $ANDROID_HOME.
 Press return when you've done this.
 EOF
 
-read X &&
+read Y &&
 
 export JAVA_HOME="${JAVA_HOME:-$(echo /usr/java/*)}" &&
 
@@ -57,8 +45,6 @@ Downloading Android SDK components, please wait...
 EOF
 $ANDROID_HOME/tools/bin/sdkmanager "ndk-bundle" "platforms;android-25" "build-tools;25.0.3" "platform-tools" &&
 
-ln -s $ANDROID_HOME/ndk-bundle /usr/android/ndk
-ln -s ndk/platforms/android-21/arch-arm /usr/android/platform
 cat <<EOF >>~/.bashrc &&
 
 # Changes for Android Swift toolchain
