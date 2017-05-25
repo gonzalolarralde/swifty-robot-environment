@@ -1,8 +1,9 @@
+#!/bin/bash
 #### swifty-robot-environment ####
 #
-# Builds modified version of build_corelibs_foundation by John Holdsworth (tw:@Injection4Xcode)
+# Rebuilds foundation from source
 #
-# Version 0.8 (2017-04-01)
+# Version 0.1 (2017-01-25xs)
 #
 # Dependencies: swift android toolchain + android NDK linked to /usr/android/ndk
 #
@@ -34,7 +35,7 @@ pushd swift-corelibs-foundation
 		LDFLAGS="-fuse-ld=gold --sysroot=$NDK/platforms/android-21/arch-arm -L$NDK/platforms/android-21/arch-arm/usr/lib -L$NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/lib/gcc/arm-linux-androideabi/4.9.x -L$LIBICONV_ANDROID/armeabi-v7a -L/usr/local/lib/swift/android -L$SYSROOT/usr/lib -ldispatch " \
 		SDKROOT=$SYSROOT/usr \
 		./configure \
-			Release \
+			Debug \
 			--target=armv7-none-linux-androideabi \
 			--sysroot=$NDK/platforms/android-21/arch-arm \
 			-DXCTEST_BUILD_DIR=$SWIFT_ANDROID_BUILDPATH/xctest-linux-x86_64 \
