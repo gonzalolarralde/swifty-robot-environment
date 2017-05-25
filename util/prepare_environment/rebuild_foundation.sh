@@ -3,7 +3,7 @@
 #
 # Rebuilds foundation from source
 #
-# Version 0.1 (2017-01-25xs)
+# Version 0.1 (2017-01-25)
 #
 # Dependencies: swift android toolchain + android NDK linked to /usr/android/ndk
 #

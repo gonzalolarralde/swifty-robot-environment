@@ -77,6 +77,10 @@ pushd $TOOLCHAIN/sysroot
 			cp $SWIFT_ANDROID_BUILDPATH/foundation-linux-x86_64/Foundation/Foundation.swift* $SWIFT_INSTALLATION_PATH/usr/lib/swift/android/armv7/
 			cp $SYSROOT/usr/lib/libxml2.* $SWIFT_INSTALLATION_PATH/usr/lib/swift/android/
 			cp $SYSROOT/usr/lib/libcurl.* $SWIFT_INSTALLATION_PATH/usr/lib/swift/android/	
+			cp -r $SWIFT_ANDROID_BUILDPATH/foundation-linux-x86_64/Foundation/usr/lib/swift/CoreFoundation $SWIFT_INSTALLATION_PATH/usr/lib/swift
+
+			# Undo those nasty changes
+			rm $SWIFT_ANDROID_BUILDPATH/swift-linux-x86_64/lib/swift/linux/armv7
 
 			# prep install so it can be used to build foundation
 			cp -r $SYSROOT/src/libxml2/include/libxml $SWIFT_INSTALLATION_PATH/usr/lib/swift
@@ -84,11 +88,9 @@ pushd $TOOLCHAIN/sysroot
 			cp $SYSROOT/src/openssl/include/openssl/* $SWIFT_INSTALLATION_PATH/usr/lib/swift/openssl
 			cp -r $SYSROOT/src/curl/include/curl $SWIFT_INSTALLATION_PATH/usr/lib/swift
 			cp -r $LIBICONV_ANDROID/armeabi-v7a/include/unicode $SWIFT_INSTALLATION_PATH/usr/lib/swift
-			cp $TOOLCHAIN/bin/clang $SWIFT_INSTALLATION_PATH/usr/bin
+			cp $SWIFT_ANDROID_BUILDPATH/llvm-linux-x86_64/bin/clang $SWIFT_INSTALLATION_PATH/usr/bin
+			cp ../../{{setup_ubuntu_client,rebuild_foundation}.sh,LICENSE} $SWIFT_INSTALLATION_PATH
 
-			# Undo those nasty changes
-			rm $SWIFT_ANDROID_BUILDPATH/swift-linux-x86_64/lib/swift/linux/armv7
-			cp ../../setup_ubuntu_client.sh $SWIFT_INSTALLATION_PATH
 		popd
 
 	popd

@@ -1,0 +1,36 @@
+
+Andoroid swift compiler and toolchain for Unbuntu 16.04
+
+Other resources
+
+Use the enclosed script setup_ubuntu_client.sh to setup your linux environment.
+
+Check out the [SwiftAndroid](https://github.com/SwiftAndroid) and
+[SwiftJava](https://github.com/SwiftJava/swift-android-samples)
+github projects for starter Android applications and resources.
+
+This binary package contains software built from the following repositories:
+
+https://github.com/curl/curl
+
+git://git.gnome.org/libxml2 or
+https://github.com/android/platform_external_libxml2
+
+https://github.com/SwiftAndroid/libiconv-libicu-android
+
+https://github.com/apple/swift
+
+https://github.com/apple/swift-corelibs-libdispatch
+
+https://github.com/apple/swift-corelibs-foundation
+
+Built using a fork of the scripts in:
+https://github.com/gonzalolarralde/swifty-robot-environment
+
+Your use of this software is subject to the license agreements of these projects and,
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
