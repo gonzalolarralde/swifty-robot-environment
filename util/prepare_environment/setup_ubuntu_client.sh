@@ -42,6 +42,9 @@ $ANDROID_HOME/tools/bin/sdkmanager --licenses &&
 cat <<EOF &&
 
 Downloading Android SDK components, please wait...
+This will take a while and can also hang so if you've not seen any
+network traffic for a while feel free to ^C and restart this script.
+
 EOF
 $ANDROID_HOME/tools/bin/sdkmanager "ndk-bundle" "platforms;android-25" "build-tools;25.0.3" "platform-tools" &&
 
