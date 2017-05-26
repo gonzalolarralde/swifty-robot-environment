@@ -102,6 +102,7 @@ pushd $TOOLCHAIN/sysroot
 			cp $SYSROOT/src/curl/COPYING $SWIFT_INSTALLATION_PATH/licenses/CURL
 			cp $SYSROOT/src/openssl/LICENSE $SWIFT_INSTALLATION_PATH/licenses/OPENSSL
 			cp $SYSROOT/src/libxml2/README $SWIFT_INSTALLATION_PATH/licenses/LIBXML
+			cp ../../libiconv-libicu-android/LICENSE $SWIFT_INSTALLATION_PATH/licenses/LIBICU
 
 			cp ../../{{setup_ubuntu_client,rebuild_foundation}.sh,LICENSE} $SWIFT_INSTALLATION_PATH
 
