@@ -84,11 +84,25 @@ pushd $TOOLCHAIN/sysroot
 
 			# prep install so it can be used to build foundation
 			cp -r $SYSROOT/src/libxml2/include/libxml $SWIFT_INSTALLATION_PATH/usr/lib/swift
-			mkdir $SWIFT_INSTALLATION_PATH/usr/lib/swift/openssl
+			mkdir -p $SWIFT_INSTALLATION_PATH/usr/lib/swift/openssl
 			cp $SYSROOT/src/openssl/include/openssl/* $SWIFT_INSTALLATION_PATH/usr/lib/swift/openssl
 			cp -r $SYSROOT/src/curl/include/curl $SWIFT_INSTALLATION_PATH/usr/lib/swift
 			cp -r $LIBICONV_ANDROID/armeabi-v7a/include/unicode $SWIFT_INSTALLATION_PATH/usr/lib/swift
 			cp $SWIFT_ANDROID_BUILDPATH/llvm-linux-x86_64/bin/clang $SWIFT_INSTALLATION_PATH/usr/bin
+
+			mkdir -p $SWIFT_INSTALLATION_PATH/licenses
+			cp $SWIFT_ANDROID_SOURCE/swift/LICENSE.txt $SWIFT_INSTALLATION_PATH/licenses/SWIFT
+			cp $SWIFT_ANDROID_SOURCE/swift-corelibs-libdispatch/LICENSE $SWIFT_INSTALLATION_PATH/licenses/DISPATCH
+			cp $SWIFT_ANDROID_SOURCE/swift-corelibs-foundation/LICENSE $SWIFT_INSTALLATION_PATH/licenses/FOUNDATION
+			cp $SWIFT_ANDROID_SOURCE/swiftpm/LICENSE.txt $SWIFT_INSTALLATION_PATH/licenses/SWIFTPM
+			cp $SWIFT_ANDROID_SOURCE/clang/LICENSE.TXT $SWIFT_INSTALLATION_PATH/licenses/CLANG
+			cp $SWIFT_ANDROID_SOURCE/llvm/LICENSE.TXT $SWIFT_INSTALLATION_PATH/licenses/LLVM
+			cp $SWIFT_ANDROID_SOURCE/lldb/LICENSE.TXT $SWIFT_INSTALLATION_PATH/licenses/LLDB
+			cp $SWIFT_ANDROID_SOURCE/llbuild/LICENSE.txt $SWIFT_INSTALLATION_PATH/licenses/LLBUILD
+			cp $SYSROOT/src/curl/COPYING $SWIFT_INSTALLATION_PATH/licenses/CURL
+			cp $SYSROOT/src/openssl/LICENSE $SWIFT_INSTALLATION_PATH/licenses/OPENSSL
+			cp $SYSROOT/src/libxml2/README $SWIFT_INSTALLATION_PATH/licenses/LIBXML
+
 			cp ../../{{setup_ubuntu_client,rebuild_foundation}.sh,LICENSE} $SWIFT_INSTALLATION_PATH
 
 		popd
