@@ -26,6 +26,13 @@ chmod +x /usr/bin/clang
 
 ####### /TARGET OPTIONS NOT PASSED TO CLANG ISSUE PATCH #######
 
+####### SwiftGlibc HAS A HARDCODED PATH
+
+mkdir -p /root/ndk/android-ndk-r14b/platforms/android-21/
+ln -s ${!SDK} /root/ndk/android-ndk-r14b/platforms/android-21/arch-arm
+
+####### /SwiftGlibc HAS A HARDCODED PATH
+
 $SR_SWIFT_BIN/swift build \
     -Xswiftc -target -Xswiftc $SR_TRIPLE \
     -Xswiftc -tools-directory -Xswiftc ${!TOOLCHAIN}/bin \
