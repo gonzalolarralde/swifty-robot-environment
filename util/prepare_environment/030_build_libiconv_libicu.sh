@@ -9,7 +9,7 @@
 
 source .profile
 
-git clone https://github.com/SwiftAndroid/libiconv-libicu-android.git libiconv-libicu-android
+git clone https://github.com/gonzalolarralde/libiconv-libicu-android.git libiconv-libicu-android -b icu4c-51
 
 pushd ./libiconv-libicu-android 
 
