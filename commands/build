@@ -37,4 +37,5 @@ $SR_SWIFT_BIN/swift build \
     -Xlinker -fuse-ld=ANDROID_TARGET \
     -Xlinker -L${!GCC_LIB} \
     -Xlinker -L${!SDK}/usr/lib \
+    -Xlinker ${!TOOLCHAIN}/lib/libatomic.a \
     $@
