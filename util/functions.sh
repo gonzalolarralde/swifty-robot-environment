@@ -34,6 +34,7 @@ Built-in commands:
     shell - Create a temporary container and start a shell
 
 Commands:
+
 $(sr_command_list)
 
 HEREDOC
