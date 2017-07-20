@@ -2,7 +2,7 @@
 #
 # Get last swift and components repositories cloned
 #
-# Version 0.2 (2016-12-30)
+# Version 0.3 (2017-07-19)
 #
 # Dependencies: swift @ github/apple
 #               approved_prs @ pick.ly
@@ -23,7 +23,7 @@ function fetch_pr {
 }
 
 function apply_pr {
-        echo -n "Applying $1/$2#$3 from to $2: "
+        echo -n "Applying $1/$2#$3 to $2: "
         if check_pr_mergeability $@; then
 
                 fetch_pr $@
@@ -52,11 +52,11 @@ function apply_approved_prs {
 }
 
 mkdir -p swift-source/swift
-git clone $GIT_URL_SWIFT swift-source/swift
+git clone $GIT_URL_SWIFT swift-source/swift # --depth 1 # --shallow-submodules
 
 pushd swift-source
-	swift/utils/update-checkout --clone
-	apply_approved_prs
+        swift/utils/update-checkout --clone # --skip-history
+        apply_approved_prs
 popd
 
 echo 'export SWIFT_ANDROID_SOURCE="'`realpath ./swift-source`'"' >> .profile
