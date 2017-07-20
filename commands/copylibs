@@ -1,0 +1,40 @@
+#!/bin/bash
+SR_COMMAND_DESC="Copy Android binaries of Swift libs and dependencies to the specified path"
+
+source /etc/profile
+
+DEST=$1
+
+if [[ ! "$DEST" ]]; then
+    echo $SR_COMMAND_DESC
+    echo 
+    echo "USAGE: sr `basename $0` <dest dir>"
+
+    exit 127
+fi
+
+echo "Copying dependencies to $DEST"
+
+if [[ "${DEST:0:1}" == '/' ]]; then
+    DEST="$SR_HOST_FS$DEST"
+fi
+
+mkdir -p $DEST
+
+while read LIBPATH LIB; do
+    cp $LIBPATH $DEST/
+    echo \> $LIB
+done <<HEREDOC
+/root/android-standalone-toolchain/arm-linux-androideabi/lib/libc++_shared.so libc++_shared.so
+/root/swift-install/usr/lib/swift/android/libxml2.so libxml2.so
+/root/swift-install/usr/lib/swift/android/libcurl.so libcurl.so
+/root/swift-install/usr/lib/swift/android/libFoundation.so libFoundation.so
+/root/swift-install/usr/lib/swift/android/libdispatch.so libdispatch.so
+/root/swift-install/usr/lib/swift/android/libicudata.so libicudata.so
+/root/swift-install/usr/lib/swift/android/libicui18n.so libicui18n.so
+/root/swift-install/usr/lib/swift/android/libicuuc.so libicuuc.so
+/root/swift-install/usr/lib/swift/android/libswiftCore.so libswiftCore.so
+/root/swift-install/usr/lib/swift/android/libswiftGlibc.so libswiftGlibc.so
+/root/swift-install/usr/lib/swift/android/libswiftRemoteMirror.so libswiftRemoteMirror.so
+/root/swift-install/usr/lib/swift/android/libswiftSwiftOnoneSupport.so libswiftSwiftOnoneSupport.so
+HEREDOC

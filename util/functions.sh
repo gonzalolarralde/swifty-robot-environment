@@ -48,7 +48,7 @@ function sr_pull_image {
 }
 
 function sr_run {
-	sr_call_docker run --rm -v /:$SR_HOST_FS -w="$SR_HOST_FS`pwd`" $SR_IMAGE $@
+    sr_call_docker run -e SR_HOST_FS -e SR_DIR --rm -v /:$SR_HOST_FS -w="$SR_HOST_FS`pwd`" $SR_IMAGE $@
 }
 
 function sr_shell {
@@ -58,14 +58,14 @@ function sr_shell {
 ### Commands ###
 
 function sr_command_desc {
-	# Ugly as hell. This needs to get improved.
-	unset $SR_COMMAND_DESC
-	eval $( cat $SR_DIR/commands/$1 | grep "SR_COMMAND_DESC" )
-	if [[ "$SR_COMMAND_DESC" ]]; then
-		echo " - $SR_COMMAND_DESC"
-	else
-		echo
-	fi
+    # Ugly as hell. This needs to get improved.
+    unset $SR_COMMAND_DESC
+    eval $( cat $SR_DIR/commands/$1 | grep "SR_COMMAND_DESC" | head -n 1 )
+    if [[ "$SR_COMMAND_DESC" ]]; then
+        echo " - $SR_COMMAND_DESC"
+    else
+        echo
+    fi
 }
 
 function sr_command_list {
