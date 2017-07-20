@@ -33,6 +33,12 @@ ln -s ${!SDK} /root/ndk/android-ndk-r14b/platforms/android-21/arch-arm
 
 ####### /SwiftGlibc HAS A HARDCODED PATH
 
+####### locale.h DUPLICATED
+
+rm /root/android-standalone-toolchain/sysroot/usr/local/include/locale.h
+
+####### /locale.h DUPLICATED
+
 $SR_SWIFT_BIN/swift build \
     -Xswiftc -target -Xswiftc $SR_TRIPLE \
     -Xswiftc -tools-directory -Xswiftc ${!TOOLCHAIN}/bin \
