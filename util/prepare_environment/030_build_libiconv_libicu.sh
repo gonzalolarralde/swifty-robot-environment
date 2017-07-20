@@ -13,8 +13,8 @@ git clone https://github.com/SwiftAndroid/libiconv-libicu-android.git libiconv-l
 
 pushd ./libiconv-libicu-android 
 
-	export PATH="$NDK:$PATH"
-	./build.sh
+    export PATH="$NDK:$PATH"
+    ./build.sh
 
 popd
 

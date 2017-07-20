@@ -11,11 +11,10 @@ SDK="SR_ANDROID_${SR_ARCH}_SDK"
 GCC_LIB="SR_ANDROID_${SR_ARCH}_GCC_LIB"
 
 $SR_SWIFT_BIN/swiftc \
-	-target $SR_TRIPLE \
-	-tools-directory ${!TOOLCHAIN}/bin \
-	-sdk ${!SDK} \
-	-L${!GCC_LIB} \
-	-L${!TOOLCHAIN}/lib \
-	-Xcc -fPIC -Xlinker -fpie -Xlinker -shared \
-	$@
-
+    -target $SR_TRIPLE \
+    -tools-directory ${!TOOLCHAIN}/bin \
+    -sdk ${!SDK} \
+    -L${!GCC_LIB} \
+    -L${!TOOLCHAIN}/lib \
+    -Xcc -fPIC -Xlinker -fpie -Xlinker -shared \
+    $@

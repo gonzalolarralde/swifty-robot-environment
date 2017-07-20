@@ -34,7 +34,7 @@ function apply_pr {
                                 echo "Done!"
                         else
                                 echo "Path failed..."
-				exit 127
+                                exit 127
                         fi
                 popd > /dev/null
 

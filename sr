@@ -6,16 +6,16 @@ source $SR_DIR/util/config.sh
 source $SR_DIR/util/functions.sh
 
 case $1 in
-	self-update ) sr_self_update ;;
-	pull-image ) sr_pull_image ;;
-	help ) sr_help ;;
-	version ) sr_version ;;
-	run ) sr_run ${@:2} ;;
-	shell ) sr_shell ${@:2} ;;
-	* ) if sr_has_command $@; then
-		sr_run_command $@
-		exit $? # We really want to finish here with whatever was the execution result. Just in case we forgot this in the future and add a line below the case statement
-	    else
-		sr_err "Swifty Robot: Unknown command '$1'. Try with 'help'." >&2
-	    fi ;;
+    self-update ) sr_self_update ;;
+    pull-image ) sr_pull_image ;;
+    help ) sr_help ;;
+    version ) sr_version ;;
+    run ) sr_run ${@:2} ;;
+    shell ) sr_shell ${@:2} ;;
+    * ) if sr_has_command $@; then
+        sr_run_command $@
+        exit $? # We really want to finish here with whatever was the execution result. Just in case we forgot this in the future and add a line below the case statement
+        else
+        sr_err "Swifty Robot: Unknown command '$1'. Try with 'help'." >&2
+        fi ;;
 esac

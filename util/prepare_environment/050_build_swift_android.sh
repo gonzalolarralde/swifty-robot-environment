@@ -16,24 +16,24 @@ export SWIFT_INSTALLATION_PATH="`realpath ./swift-install`"
 mkdir -p $SWIFT_INSTALLATION_PATH
 
 pushd $SWIFT_ANDROID_SOURCE/swift
-	utils/build-script \
-		-R \
-		--android \
-		--android-ndk $NDK \
-		--android-api-level 21 \
-		--android-icu-uc $LIBICONV_ANDROID/armeabi-v7a \
-		--android-icu-uc-include $LIBICONV_ANDROID/armeabi-v7a/icu/source/common \
-		--android-icu-i18n $LIBICONV_ANDROID/armeabi-v7a \
-		--android-icu-i18n-include $LIBICONV_ANDROID/armeabi-v7a/icu/source/i18n \
-		--libdispatch --install-libdispatch \
-		--foundation --install-foundation \
-		--llbuild --install-llbuild \
-		--lldb --install-lldb \
-		--swiftpm --install-swiftpm \
-		--xctest --install-xctest \
-		--install-swift \
-		'--swift-install-components=autolink-driver;compiler;clang-builtin-headers;stdlib;swift-remote-mirror;sdk-overlay;dev' \
-		--install-prefix=/usr --install-destdir=$SWIFT_INSTALLATION_PATH
+    utils/build-script \
+        -R \
+        --android \
+        --android-ndk $NDK \
+        --android-api-level 21 \
+        --android-icu-uc $LIBICONV_ANDROID/armeabi-v7a/ \
+        --android-icu-uc-include $LIBICONV_ANDROID/armeabi-v7a/icu/source/common \
+        --android-icu-i18n $LIBICONV_ANDROID/armeabi-v7a/ \
+        --android-icu-i18n-include $LIBICONV_ANDROID/armeabi-v7a/icu/source/i18n \
+        --libdispatch --install-libdispatch \
+        --foundation --install-foundation \
+        --llbuild --install-llbuild \
+        --lldb --install-lldb \
+        --swiftpm --install-swiftpm \
+        --xctest --install-xctest \
+        --install-swift \
+        '--swift-install-components=autolink-driver;compiler;clang-builtin-headers;stdlib;swift-remote-mirror;sdk-overlay;dev' \
+        --install-prefix=/usr --install-destdir=$SWIFT_INSTALLATION_PATH
 popd
 
 export SWIFT_ANDROID_BUILDPATH="$SWIFT_ANDROID_SOURCE/build/Ninja-ReleaseAssert"

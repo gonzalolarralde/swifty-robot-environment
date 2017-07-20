@@ -3,16 +3,16 @@
 echo "Installing Swift Robot Environment"$'\n'
 
 function err {
-	echo \> $'\033[0;31m'$*$'\033[0m' >&2
-	exit 127
+    echo \> $'\033[0;31m'$*$'\033[0m' >&2
+    exit 127
 }
 
 function log {
-	echo ⚙ $'\033[0;32m'$*$'\033[0m'
+    echo ⚙ $'\033[0;32m'$*$'\033[0m'
 }
 
 function newline {
-	echo # ¬¬
+    echo # ¬¬
 }
 
 DESTDIR=~/.swiftyrobot
@@ -23,23 +23,23 @@ mkdir -p $DESTDIR || err "Couldn't create destination directory: $DESTDIR"
 /usr/bin/env docker ps > /dev/null 2> /dev/null || err "Please start docker."
 
 if [[ -d $DESTDIR ]]; then
-	log "Removing old version..."
-	rm -rf $DESTDIR # Probably a git pull in the future?
+    log "Removing old version..."
+    rm -rf $DESTDIR # Probably a git pull in the future?
 fi
 
 log "Fetching last version..."
 /usr/bin/env git clone https://github.com/gonzalolarralde/swifty-robot-environment.git $DESTDIR -q || err "Couldn't clone Swifty Robot Environment repository"
 
 if [[ ":$PATH:" == *":$DESTDIR:"* ]]; then
-	log "Swifty Robot Environment already in PATH :)"
+    log "Swifty Robot Environment already in PATH :)"
 else
-	if [[ $SHELL == *"bash"* ]]; then
-		echo "export PATH=\$PATH:$DESTDIR" >> ~/.bash_profile
-	else
-		log "Looks like you're not using bash. Please add this to you shell's profile:"
-		echo $'\t'"export PATH=\$PATH:$DESTDIR"
-		newline
-	fi
+    if [[ $SHELL == *"bash"* ]]; then
+        echo "export PATH=\$PATH:$DESTDIR" >> ~/.bash_profile
+    else
+        log "Looks like you're not using bash. Please add this to you shell's profile:"
+        echo $'\t'"export PATH=\$PATH:$DESTDIR"
+        newline
+    fi
 fi
 
 log "Pulling docker image..."
@@ -76,4 +76,3 @@ https://github.com/gonzalolarralde/swifty-robot-environment/issues/new
 Happy Swiftying!
 
 HEREDOC
-
