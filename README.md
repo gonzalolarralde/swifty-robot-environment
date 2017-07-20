@@ -36,7 +36,7 @@ and deploy.
 * Step-by-step full examples.
 * Fix compatibility issues between Swift and ARMv7 or Android.
 
-## Build it yourself
+## Build it yourself
 
 In case you want to create the Docker image yourself using the last version, clone this repo and run:
 
@@ -46,6 +46,6 @@ $ docker build -t swifty-robot-evinronment .
 
 This will run the image generation using all the scripts available in `prepare_environment`.
 
-## Reach out
+## Reach out
 
-Follow me on twitter: @gonzalolarralde happy to answer any question you may have.
+Follow me on twitter: [@gonzalolarralde](https://twitter.com/gonzalolarralde/) happy to answer any question you may have.
