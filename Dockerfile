@@ -4,6 +4,7 @@ WORKDIR /root
 MAINTAINER Gonzalo Larralde <gonzalolarralde@gmail.com>
 
 ADD util/prepare_environment/*.sh ./
+ADD prefetched ./prefetched
 
 RUN /bin/bash -e 010_install_dependencies.sh
 RUN /bin/bash -e 020_install_ndk.sh

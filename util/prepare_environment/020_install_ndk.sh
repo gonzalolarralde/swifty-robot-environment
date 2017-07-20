@@ -2,15 +2,25 @@
 #
 # Installs current NDK version and removes unused toolchains and platforms
 #
-# Version 0.5 (2017-04-02)
+# Version 0.6 (2017-07-19)
 #
 # Dependencies: ndk @ google/android
 #
 
 source .profile
 
+NDK_FILENAME=android-ndk-r14b-linux-x86_64.zip
+
 mkdir ndk
-wget https://dl.google.com/android/repository/android-ndk-r14b-linux-x86_64.zip -O ndk.zip
+
+# If the current NDK has been provided in the prefetched directory don't download it again
+if [[ -d "./prefetched/" && -f "./prefetched/$NDK_FILENAME" ]];
+then
+    mv "./prefetched/$NDK_FILENAME" ndk.zip
+else
+    wget "https://dl.google.com/android/repository/$NDK_FILENAME" -O ndk.zip
+fi
+
 unzip ndk.zip -d ./ndk
 rm ndk.zip
 
