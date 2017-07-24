@@ -28,8 +28,9 @@ chmod +x /usr/bin/clang
 
 ####### SwiftGlibc HAS A HARDCODED PATH
 
-mkdir -p /root/ndk/android-ndk-r14b/platforms/android-21/
-ln -s ${!SDK} /root/ndk/android-ndk-r14b/platforms/android-21/arch-arm
+cat /root/swift-install/usr/lib/swift/android/armv7/glibc.modulemap \
+	| sed 's/\/root\/ndk\/android-ndk-r14b\/platforms\/android-21\/arch-arm\//\/root\/android-standalone-toolchain\/sysroot/g' \
+	> /root/swift-install/usr/lib/swift/android/armv7/glibc.modulemap
 
 ####### /SwiftGlibc HAS A HARDCODED PATH
 
