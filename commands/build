@@ -37,6 +37,7 @@ cat /root/swift-install/usr/lib/swift/android/armv7/glibc.modulemap \
 ####### locale.h DUPLICATED
 
 rm /root/android-standalone-toolchain/sysroot/usr/local/include/locale.h
+rm /root/android-standalone-toolchain/sysroot/usr/local/include/xlocale.h
 
 ####### /locale.h DUPLICATED
 
