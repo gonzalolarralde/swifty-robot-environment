@@ -21,6 +21,17 @@ fi
 
 mkdir -p $DEST
 
+###### PATCH ICU LIB NAMES
+# @ephemer's patch
+# https://medium.com/@ephemer/how-we-put-an-app-in-the-android-play-store-using-swift-67bd99573e3c
+
+rpl -R -e libicu libscu /root/swift-install/usr/lib/swift/android/lib*.so
+mv /root/swift-install/usr/lib/swift/android/libicudata.so /root/swift-install/usr/lib/swift/android/libscudata.so
+mv /root/swift-install/usr/lib/swift/android/libicui18n.so /root/swift-install/usr/lib/swift/android/libscui18n.so
+mv /root/swift-install/usr/lib/swift/android/libicuuc.so /root/swift-install/usr/lib/swift/android/libscuuc.so
+
+######
+
 while read LIBPATH LIB; do
     cp $LIBPATH $DEST/
     echo \> $LIB
@@ -30,9 +41,9 @@ done <<HEREDOC
 /root/swift-install/usr/lib/swift/android/libcurl.so libcurl.so
 /root/swift-install/usr/lib/swift/android/libFoundation.so libFoundation.so
 /root/swift-install/usr/lib/swift/android/libdispatch.so libdispatch.so
-/root/swift-install/usr/lib/swift/android/libicudata.so libicudata.so
-/root/swift-install/usr/lib/swift/android/libicui18n.so libicui18n.so
-/root/swift-install/usr/lib/swift/android/libicuuc.so libicuuc.so
+/root/swift-install/usr/lib/swift/android/libscudata.so libscudata.so
+/root/swift-install/usr/lib/swift/android/libscui18n.so libscui18n.so
+/root/swift-install/usr/lib/swift/android/libscuuc.so libscuuc.so
 /root/swift-install/usr/lib/swift/android/libswiftCore.so libswiftCore.so
 /root/swift-install/usr/lib/swift/android/libswiftGlibc.so libswiftGlibc.so
 /root/swift-install/usr/lib/swift/android/libswiftRemoteMirror.so libswiftRemoteMirror.so
