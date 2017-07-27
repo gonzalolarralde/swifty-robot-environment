@@ -25,16 +25,32 @@ rm /root/android-standalone-toolchain/sysroot/usr/local/include/xlocale.h
 
 ####### /locale.h DUPLICATED
 
+####### CREATING android-destination.json FOR SWIFT PM
+
+cat > "/root/android-destination.json" <<EOF
+{
+    "version": 1,
+    "sdk": "${!SDK}",
+    "toolchain-bin-dir": "$SR_SWIFT_BIN",
+    "target": "$SR_TRIPLE",
+    "dynamic-library-extension": "so",
+    "extra-cc-flags": [
+        "-fPIC"
+    ],
+    "extra-swiftc-flags": [
+        "-use-ld=gold", "-tools-directory", "${!TOOLCHAIN}/bin", "-L${!SDK}/usr/lib"
+    ],
+    "extra-cpp-flags": [
+    ]
+}
+EOF
+
+#######
+
 $SR_SWIFT_BIN/swift build \
-    -Xswiftc -target -Xswiftc $SR_TRIPLE \
-    -Xswiftc -tools-directory -Xswiftc ${!TOOLCHAIN}/bin \
-    -Xswiftc -sdk -Xswiftc ${!SDK} \
-    -Xswiftc -L${!SDK}/usr/lib \
-    -Xcc -target -Xcc $SR_TRIPLE \
-    -Xcc --sysroot=${!SDK} \
-    -Xcc -fPIC -Xlinker -fpie -Xlinker -shared \
-    -Xlinker -fuse-ld=ANDROID_TARGET \
+    -Xlinker -fpie -Xlinker -shared \
     -Xlinker -L${!GCC_LIB} \
     -Xlinker -L${!SDK}/usr/lib \
     -Xlinker ${!TOOLCHAIN}/lib/libatomic.a \
+    --destination /root/android-destination.json \
     $@
