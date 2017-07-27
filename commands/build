@@ -10,22 +10,6 @@ TOOLCHAIN="SR_ANDROID_${SR_ARCH}_TOOLCHAIN"
 SDK="SR_ANDROID_${SR_ARCH}_SDK"
 GCC_LIB="SR_ANDROID_${SR_ARCH}_GCC_LIB"
 
-####### TARGET OPTIONS NOT PASSED TO CLANG ISSUE PATCH #######
-
-### An issue on swiftpm requires clang to monkey-patch the cross compiling parameters
-
-mv /usr/bin/clang /usr/bin/@clang
-cat > /usr/bin/clang <<EOF
-#!/bin/bash
-
-PARAMS=\$(echo -n \$@ | sed 's~-Xlinker -fuse-ld=ANDROID_TARGET~-target $SR_TRIPLE -B${!TOOLCHAIN}/bin --sysroot=${!SDK} -fuse-ld=gold~g')
-/usr/bin/@clang \$PARAMS
-
-EOF
-chmod +x /usr/bin/clang
-
-####### /TARGET OPTIONS NOT PASSED TO CLANG ISSUE PATCH #######
-
 ####### SwiftGlibc HAS A HARDCODED PATH
 
 cat /root/swift-install/usr/lib/swift/android/armv7/glibc.modulemap \
