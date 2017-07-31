@@ -53,7 +53,7 @@ function sr_run {
 }
 
 function sr_shell {
-    sr_call_docker run --rm -ti $SR_IMAGE /bin/bash -l $@
+    sr_call_docker run --rm -v /:$SR_HOST_FS -w="$SR_HOST_FS`pwd`" -ti $SR_IMAGE /bin/bash -l $@
 }
 
 ### Commands ###
