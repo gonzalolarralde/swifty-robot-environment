@@ -10,6 +10,13 @@ TOOLCHAIN="SR_ANDROID_${SR_ARCH}_TOOLCHAIN"
 SDK="SR_ANDROID_${SR_ARCH}_SDK"
 GCC_LIB="SR_ANDROID_${SR_ARCH}_GCC_LIB"
 
+####### SwiftGlibc HAS A HARDCODED PATH
+
+sed -i "s_/root/ndk/android-ndk-r14b/platforms/android-21/arch-arm/_/root/android-standalone-toolchain/sysroot_g" \
+    /root/swift-install/usr/lib/swift/android/armv7/glibc.modulemap
+
+####### /SwiftGlibc HAS A HARDCODED PATH
+
 $SR_SWIFT_BIN/swiftc \
     -target $SR_TRIPLE \
     -tools-directory ${!TOOLCHAIN}/bin \
