@@ -17,6 +17,7 @@ pushd $SWIFT_ANDROID_SOURCE
 			CC="$SWIFT_ANDROID_BUILDPATH/llvm-linux-x86_64/bin/clang" \
 			CXX="$SWIFT_ANDROID_BUILDPATH/llvm-linux-x86_64/bin/clang++" \
 			SWIFTC="$SWIFT_ANDROID_BUILDPATH/swift-linux-x86_64/bin/swiftc" \
+			LIBS="-L/tmp/placeholder" \
 			./configure \
 				--with-swift-toolchain="$SWIFT_ANDROID_BUILDPATH/swift-linux-x86_64" \
 				--with-build-variant=release \
@@ -26,6 +27,8 @@ pushd $SWIFT_ANDROID_SOURCE
 				--with-android-api-level=21 \
 				--disable-build-tests \
 				--prefix=$SWIFT_INSTALLATION_PATH/usr
+
+		sed -ie "s@-L/tmp/placeholder@-L$SWIFT_INSTALLATION_PATH/usr/lib/swift/android -lswiftCore -L$NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/arm-linux-androideabi/lib/armv7-a -latomic@" src/Makefile
 
 		make
 		make install
