@@ -17,6 +17,7 @@ pushd $SWIFT_ANDROID_SOURCE
 			CC="$SWIFT_ANDROID_BUILDPATH/llvm-linux-x86_64/bin/clang" \
 			CXX="$SWIFT_ANDROID_BUILDPATH/llvm-linux-x86_64/bin/clang++" \
 			SWIFTC="$SWIFT_ANDROID_BUILDPATH/swift-linux-x86_64/bin/swiftc" \
+			CFLAGS="-DTRASHIT=''" \
 			LIBS="-L/tmp/placeholder" \
 			./configure \
 				--with-swift-toolchain="$SWIFT_ANDROID_BUILDPATH/swift-linux-x86_64" \
