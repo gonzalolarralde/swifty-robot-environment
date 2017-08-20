@@ -56,7 +56,7 @@ git clone $GIT_URL_SWIFT swift-source/swift
 
 pushd swift-source
 	swift/utils/update-checkout --clone
-	apply_approved_prs
+	#apply_approved_prs
 popd
 
 echo 'export SWIFT_ANDROID_SOURCE="'`realpath ./swift-source`'"' >> .profile

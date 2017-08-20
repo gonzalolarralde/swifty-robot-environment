@@ -1,18 +1,18 @@
 #!/bin/bash -x
 #
-# Setup Ubuntu 16.0.4 environment to use Android toolchain
+# Setup Ubuntu 16.04 environment to use Android toolchain
 #
 
 export ANDROID_HOME=${ANDROID_HOME:-~/Android}
 
 cd $(dirname $0)
 mkdir -p $ANDROID_HOME &&
-sudo mkdir -p /usr/java /usr/android &&
-sudo chmod 777 /usr/java /usr/android &&
-sudo ln -s $ANDROID_HOME/ndk-bundle /usr/android/ndk
-sudo ln -s ndk/platforms/android-21/arch-arm /usr/android/platform
-sudo ln -s /usr/android/ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-ld.gold /usr/bin/armv7-none-linux-android-ld.gold
-sudo ln -s /usr/android/ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-ld.gold /usr/bin/armv7-none-linux-androideabi-ld.gold
+sudo mkdir -p /usr/java /usr/local/android &&
+sudo chmod 777 /usr/java /usr/local/android &&
+sudo ln -s $ANDROID_HOME/ndk-bundle /usr/local/android/ndk
+sudo ln -s ndk/platforms/android-21/arch-arm /usr/local/android/platform
+sudo ln -s /usr/local/android/ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-ld.gold /usr/bin/armv7-none-linux-android-ld.gold
+sudo ln -s /usr/local/android/ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-ld.gold /usr/bin/armv7-none-linux-androideabi-ld.gold
 
 sudo apt-get -y update && sudo apt-get install -y \
 	git cmake ninja-build clang python uuid-dev libicu-dev icu-devtools \

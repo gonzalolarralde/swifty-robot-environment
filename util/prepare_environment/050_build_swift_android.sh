@@ -19,7 +19,7 @@ pushd $SWIFT_ANDROID_SOURCE/swift
 	utils/build-script \
 		-R \
 		--android \
-		--android-ndk $NDK \
+		--android-ndk /usr/local/android/ndk \
 		--android-api-level 21 \
 		--android-icu-uc $LIBICONV_ANDROID/armeabi-v7a \
 		--android-icu-uc-include $LIBICONV_ANDROID/armeabi-v7a/icu/source/common \
@@ -35,7 +35,7 @@ pushd $SWIFT_ANDROID_SOURCE/swift
 		'--swift-install-components=autolink-driver;compiler;clang-builtin-headers;stdlib;swift-remote-mirror;sdk-overlay;dev' \
 		--install-prefix=/usr --install-destdir=$SWIFT_INSTALLATION_PATH
 popd
-
+s
 export SWIFT_ANDROID_BUILDPATH="$SWIFT_ANDROID_SOURCE/build/Ninja-ReleaseAssert"
 echo 'export SWIFT_ANDROID_BUILDPATH="'$SWIFT_ANDROID_BUILDPATH'"' >> .profile
 echo 'export SWIFT_INSTALLATION_PATH="'$SWIFT_INSTALLATION_PATH'"' >> .profile

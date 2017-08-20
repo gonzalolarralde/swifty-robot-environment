@@ -59,7 +59,8 @@ pushd $TOOLCHAIN/sysroot
 	pushd src/openssl
 
 		if [ ! -f /usr/local/bin/perl ]; then
-			ln -s /usr/bin/perl /usr/local/bin/perl
+			sudo ln -s /usr/bin/perl /usr/local/bin/perl ||
+			    (echo "/usr/local/bin/perl required" && exit 1)
 		fi
 
 		# -mandroid option seems to be only for gcc compilers. It was causing troubles with clang

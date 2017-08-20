@@ -60,7 +60,7 @@ pushd $TOOLCHAIN/sysroot
 					--sysroot=$SYSROOT \
 					-DXCTEST_BUILD_DIR=$SWIFT_ANDROID_BUILDPATH/xctest-linux-x86_64 \
 					-DLIBDISPATCH_SOURCE_DIR=$SWIFT_ANDROID_SOURCE/swift-corelibs-libdispatch \
-					-DLIBDISPATCH_BUILD_DIR=$SWIFT_ANDROID_SOURCE/swift-corelibs-libdispatch
+					-DLIBDISPATCH_BUILD_DIR=$SWIFT_ANDROID_SOURCE/swift-corelibs-libdispatch &&
 
 			# Prepend SYSROOT env variable to ninja.build script
 			# SYSROOT is not being passed from build.py / script.py to the ninja file yet
@@ -105,9 +105,11 @@ pushd $TOOLCHAIN/sysroot
 			cp $SYSROOT/src/openssl/LICENSE $SWIFT_INSTALLATION_PATH/licenses/OPENSSL
 			cp $SYSROOT/src/libxml2/README $SWIFT_INSTALLATION_PATH/licenses/LIBXML
 			cp ../../libiconv-libicu-android/LICENSE $SWIFT_INSTALLATION_PATH/licenses/LIBICU
+			cp ../../ndk/android-ndk-r14b/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/COPYING.RUNTIME $SWIFT_INSTALLATION_PATH/licenses/LIBGCC
 
-			cp ../../{{setup_ubuntu_client,rebuild_foundation}.sh,LICENSE} $SWIFT_INSTALLATION_PATH
-			rsync -av $NDK/platforms/android-21/arch-arm/usr/{include,lib} $SWIFT_INSTALLATION_PATH/ndk-android-21
+			cp ../../{{setup,rebuild_foundation}.sh,README.txt} $SWIFT_INSTALLATION_PATH
+			mkdir -p $SWIFT_INSTALLATION_PATH/ndk-android-21/usr
+			rsync -av $NDK/platforms/android-21/arch-arm/usr/{include,lib} $SWIFT_INSTALLATION_PATH/ndk-android-21/usr
 
 			mkdir -p $SWIFT_INSTALLATION_PATH/usr/{Linux,Darwin}
 			cp $NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-ld.gold $SWIFT_INSTALLATION_PATH/usr/Linux/ld.gold
