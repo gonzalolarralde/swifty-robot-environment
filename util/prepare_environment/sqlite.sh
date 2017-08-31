@@ -41,6 +41,12 @@ MAP
 
 popd
 
-tar cfvz ~/update.tgz swift-install/{licenses,README.txt,setup.sh,usr/lib/swift/{sqlite3,android/{lib{Foundation,sqlite3,XCTest}.so,armv7/{Foundation,XCTest}.swift*}}}
+pushd swift-source/swift-corelibs-xctest
+	~/.gradle/scripts/swift-build.sh -Xswiftc -module-link-name -Xswiftc XCTest
+	cp ./.build/x86_64-unknown-linux/debug/libXCTest.so ../../swift-install/usr/lib/swift/android/libXCTest.so
+	cp ./.build/x86_64-unknown-linux/debug/XCTest.{swiftmodule,swiftdoc} ../../swift-install/usr/lib/swift/android/armv7/
+popd
+
+tar cfvz ~/update.tgz swift-install/{licenses,README.txt,setup.sh,usr/lib/swift/{sqlite3,android/{lib{Foundation,sqlite3,XCTest}.so,armv7/{Foundation,XCTest}.swift*}}} swift-source/swift/{lib/Driver/ToolChains.cpp,stdlib/public/runtime/ImageInspectionELF.cpp}
 
 
