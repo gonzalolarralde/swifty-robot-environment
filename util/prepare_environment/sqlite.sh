@@ -28,25 +28,29 @@ pushd sqlite-autoconf-*
 
 	make
 
-	mkdir -p ../swift-install/usr/lib/swift/sqlite3
-	cp sqlite3.h ../swift-install/usr/lib/swift/sqlite3
-	cat <<MAP >../swift-install/usr/lib/swift/sqlite3/module.modulemap
+	mkdir -p ../swift-android-sqlite/libs
+	cp sqlite3.h ../swift-android-sqlite
+	cat <<MAP >../swift-android-sqlite/module.modulemap
 module sqlite3 [system] {
     header "sqlite3.h"
     link "sqlite3"
     export *
 }
 MAP
-    	cp .libs/libsqlite3.so ../swift-install/usr/lib/swift/android
+	
+    	cp .libs/libsqlite3.so ../swift-android-sqlite/libs
+	$NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/arm-linux-androideabi/bin/strip ../swift-android-sqlite/libs/libsqlite3.so	
 
 popd
 
 pushd swift-source/swift-corelibs-xctest
-	~/.gradle/scripts/swift-build.sh -Xswiftc -module-link-name -Xswiftc XCTest
-	cp ./.build/x86_64-unknown-linux/debug/libXCTest.so ../../swift-install/usr/lib/swift/android/libXCTest.so
-	cp ./.build/x86_64-unknown-linux/debug/XCTest.{swiftmodule,swiftdoc} ../../swift-install/usr/lib/swift/android/armv7/
+	~/.gradle/scripts/swift-build.sh -c release -Xswiftc -module-link-name -Xswiftc XCTest
+	cp ./.build/x86_64-unknown-linux/release/libXCTest.so ../../swift-install/usr/lib/swift/android/libXCTest.so
+	cp ./.build/x86_64-unknown-linux/release/XCTest.swift{module,doc} ../../swift-install/usr/lib/swift/android/armv7/
 popd
 
-tar cfvz ~/update.tgz swift-install/{licenses,README.txt,setup.sh,usr/lib/swift/{sqlite3,android/{lib{Foundation,sqlite3,XCTest}.so,armv7/{Foundation,XCTest}.swift*}}} swift-source/swift/{lib/Driver/ToolChains.cpp,stdlib/public/runtime/ImageInspectionELF.cpp}
+tar cfvz ~/update.tgz swift-install/{licenses,README.txt,setup.sh,usr/{Linux,lib/swift/android/{lib*.so,armv7/*.swift*}}} swift-source/swift/{lib/{Driver/ToolChains.cpp,Parse/ParseIfConfig.cpp},stdlib/public/{runtime/ImageInspectionELF.cpp,Platform/tgmath.swift.gyb}}
+
+#tar cfvz ~/update.tgz swift-install/{licenses,README.txt,setup.sh,usr/{Linux,lib/swift}} swift-source/swift/{lib/{Driver/ToolChains.cpp,Parse/ParseIfConfig.cpp},stdlib/public/{runtime/ImageInspectionELF.cpp,Platform/tgmath.swift.gyb}}
 
 

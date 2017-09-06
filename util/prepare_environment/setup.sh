@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Runs swift-android-gradle/src/main/scripts/create_scripts.sh to initialise
-# toolchain and install gradle plugin used for Android Studion builds.
+# toolchain and install gradle plugin used for Android Studio builds.
 #
 # Example application: https://github.com/SwiftJava/swift-android-kotlin
 #
