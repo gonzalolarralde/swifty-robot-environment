@@ -70,7 +70,8 @@ pushd swift-source
 	cd swift-corelibs-libdispatch     && git checkout android-toolchain-1.0 && cd - &&
 	rm -rf swift-corelibs-foundation  && git clone https://github.com/SwiftJava/swift-corelibs-foundation.git &&
 	cd swift-corelibs-foundation      && git checkout android-toolchain-1.0 && cd - &&
-	cd swift-corelibs-xctest          && git checkout 0f7f72573bbc5c591a533ea352f37806bea6552b && cd - &&
+	rm -rf swift-corelibs-xctest      && git clone https://github.com/SwiftJava/swift-corelibs-xctest.git &&
+	cd swift-corelibs-xctest          && git checkout android-toolchain-1.0 && cd - &&
 	cd swift-integration-tests        && git checkout 1d5d149f7aab027c9a7dccd19c0680bf36761a68 && cd - &&
 	cd swift-xcode-playground-support && git checkout 05737c49f04b9089392b599ad529ab91c7119a75 && cd - &&
 	cd swiftpm                        && git checkout f2ca05b0f2e7ae817e82dc88f9410a17e17a184a && cd -
