@@ -31,8 +31,11 @@ pushd $SWIFT_ANDROID_SOURCE
 
 		sed -ie "s@-L/tmp/placeholder@-L$SWIFT_INSTALLATION_PATH/usr/lib/swift/android -lswiftCore -L$NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/arm-linux-androideabi/lib/armv7-a -latomic@" src/Makefile
 
+		make clean
 		make
 		make install
+
+		rsync -av $SWIFT_ANDROID_SOURCE/swift-corelibs-libdispatch/src/swift/Dispatch.swift{doc,module} $SWIFT_INSTALLATION_PATH/usr/lib/swift/android/armv7/
 
 	popd
 

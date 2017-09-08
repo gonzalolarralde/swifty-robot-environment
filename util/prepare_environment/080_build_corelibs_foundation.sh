@@ -107,7 +107,7 @@ pushd $TOOLCHAIN/sysroot
 			cp ../../libiconv-libicu-android/LICENSE $SWIFT_INSTALLATION_PATH/licenses/LIBICU
 			cp ../../ndk/android-ndk-r14b/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/COPYING.RUNTIME $SWIFT_INSTALLATION_PATH/licenses/LIBGCC
 
-			cp ../../{{setup,rebuild_foundation}.sh,README.txt} $SWIFT_INSTALLATION_PATH
+			cp ../../{setup.sh,README.html} $SWIFT_INSTALLATION_PATH
 			mkdir -p $SWIFT_INSTALLATION_PATH/ndk-android-21/usr
 			rsync -av $NDK/platforms/android-21/arch-arm/usr/{include,lib} $SWIFT_INSTALLATION_PATH/ndk-android-21/usr
 

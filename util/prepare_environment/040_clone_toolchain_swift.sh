@@ -66,12 +66,14 @@ pushd swift-source
 	cd llvm        && git checkout 6fe1b90a2b5b098dc82fde53b93f331527025e84 && cd - &&
 	cd ninja       && git checkout 256bf897b85e35bc90294090ad39b5214eb141fb && cd - &&
 	cd swift       && git checkout android-toolchain-1.0 && cd - &&
+	rm -rf swift-corelibs-libdispatch && git clone https://github.com/SwiftJava/swift-corelibs-libdispatch.git &&
+	cd swift-corelibs-libdispatch     && git checkout android-toolchain-1.0 && cd - &&
 	rm -rf swift-corelibs-foundation  && git clone https://github.com/SwiftJava/swift-corelibs-foundation.git &&
-	cd swift-corelibs-libdispatch     && git checkout 0fd5a69ee5f9597aeaff8aa3f48021ced022db15 && cd - &&
+	cd swift-corelibs-foundation      && git checkout android-toolchain-1.0 && cd - &&
 	cd swift-corelibs-xctest          && git checkout 0f7f72573bbc5c591a533ea352f37806bea6552b && cd - &&
 	cd swift-integration-tests        && git checkout 1d5d149f7aab027c9a7dccd19c0680bf36761a68 && cd - &&
 	cd swift-xcode-playground-support && git checkout 05737c49f04b9089392b599ad529ab91c7119a75 && cd - &&
-	cd swiftpm && git checkout f2ca05b0f2e7ae817e82dc88f9410a17e17a184a && cd -
+	cd swiftpm                        && git checkout f2ca05b0f2e7ae817e82dc88f9410a17e17a184a && cd -
 
 	sed -i -e 's@if (STI.isTargetDarwin() && STI.getTargetLowering()->supportSwiftError()@if (/*STI.isTargetDarwin() \&\&*/ STI.getTargetLowering()->supportSwiftError()@g' llvm/lib/Target/ARM/ARMBaseRegisterInfo.cpp
 
