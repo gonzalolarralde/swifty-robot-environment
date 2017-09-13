@@ -10,16 +10,17 @@
 
 cd "$(dirname "$0")"
 
-mkdir -p swift-install/usr/Darwin
-cp $ANDROID_HOME/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/{arm-linux-androideabi/bin/ld.gold,lib/gcc/arm-linux-androideabi/4.9.x/armv7-a/libgcc.a} swift-install/usr/Darwin
-cp swift-source/build/Ninja-ReleaseAssert/swift-macosx-x86_64/bin/swift swift-install/usr/Darwin/swiftc
+rm -rf swift-install/usr/Darwin
+mkdir swift-install/usr/Darwin
+cp -v $ANDROID_HOME/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/{arm-linux-androideabi/bin/ld.gold,lib/gcc/arm-linux-androideabi/4.9.x/armv7-a/libgcc.a} swift-source/build/Ninja-ReleaseAssert/swift-macosx-x86_64/bin/swift /usr/local/bin/{pkg-config,ninja} swift-install/usr/Darwin
+ln -sv swift swift-install/usr/Darwin/swiftc
 
 rm -rf swift-install/usr/bin
 mkdir swift-install/usr/bin
-ln -s /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift swift-install/usr/bin
-ln -s swift swift-install/usr/bin/swift-autolink-extract
+ln -sv /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift swift-install/usr/bin
+ln -sv swift swift-install/usr/bin/swift-autolink-extract
 
-rm -rf swift-install/{usr/{include,libexec,local,share,lib/{*.a,*.so*,lldb,python2.7,swift_static,swift/{android/{CoreFoundation,armv7/glibc.modulemap~},clang/lib,linux,migrator,openssl,pm,usr}}},rebuild_foundation.sh,swift-android-gradle}
+rm -rf swift-install/{usr/{include,libexec,local,share,lib/{*.a,*.so*,lldb,python2.7,swift_static,swift/{android/{CoreFoundation,armv7/glibc.modulemap~},clang/lib,linux,migrator,openssl,pm,usr}}},swift-android-gradle}
 
 tar cfvz android_toolchain.tgz swift-install/
 

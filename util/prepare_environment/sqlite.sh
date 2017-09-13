@@ -49,8 +49,12 @@ pushd swift-source/swift-corelibs-xctest
 	cp ./.build/x86_64-unknown-linux/release/XCTest.swift{module,doc} ../../swift-install/usr/lib/swift/android/armv7/
 popd
 
-tar cfvz ~/update.tgz swift-install/{licenses,README.html,setup.sh,usr/{Linux,lib/swift/android/{lib*.so,armv7/*.swift*}}} swift-source/swift/{lib/{Driver/ToolChains.cpp,Parse/ParseIfConfig.cpp},stdlib/public/{runtime/ImageInspectionELF.cpp,Platform/tgmath.swift.gyb}}
+cp -rf ./libiconv-libicu-android/armeabi-v7a/lib/pkgconfig swift-install
+sed -i -e 's@-licu@-lscu@g' swift-install/pkgconfig/*.pc
+rm -f swift-install/pkgconfig/*.pc.tmp
 
-#tar cfvz ~/update.tgz swift-install/{licenses,README.html,setup.sh,usr/{Linux,lib/swift}} swift-source/swift/{lib/{Driver/ToolChains.cpp,Parse/ParseIfConfig.cpp},stdlib/public/{runtime/ImageInspectionELF.cpp,Platform/tgmath.swift.gyb}}
+tar cfvz ~/update.tgz swift-install/{licenses,README.html,{setup,rebuild_foundation}.sh,foundation.txt,usr/{Linux,lib/swift/android/{lib*.so,armv7/*.swift*}},pkgconfig} swift-source/swift/{lib/{Driver/ToolChains.cpp,Parse/ParseIfConfig.cpp},stdlib/public/{runtime/ImageInspectionELF.cpp,Platform/tgmath.swift.gyb}}
+
+#tar cfvz ~/update.tgz swift-install/{licenses,README.html,{setup,rebuild_foundation}.sh,usr/{Linux,lib/swift}} swift-source/swift/{lib/{Driver/ToolChains.cpp,Parse/ParseIfConfig.cpp},stdlib/public/{runtime/ImageInspectionELF.cpp,Platform/tgmath.swift.gyb}}
 
 

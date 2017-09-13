@@ -100,14 +100,14 @@ pushd $TOOLCHAIN/sysroot
 			cp $SWIFT_ANDROID_SOURCE/llvm/LICENSE.TXT $SWIFT_INSTALLATION_PATH/licenses/LLVM
 			cp $SWIFT_ANDROID_SOURCE/lldb/LICENSE.TXT $SWIFT_INSTALLATION_PATH/licenses/LLDB
 			cp $SWIFT_ANDROID_SOURCE/llbuild/LICENSE.txt $SWIFT_INSTALLATION_PATH/licenses/LLBUILD
-			cp $SWIFT_ANDROID_SOURCE/../../../LICENSE $SWIFT_INSTALLATION_PATH/licenses/SWIFTY_ROBOT
+			cp $SWIFT_ANDROID_SOURCE/../../../LICENSE $SWIFT_INSTALLATION_PATH/licenses/SWIFTY-ROBOT
 			cp $SYSROOT/src/curl/COPYING $SWIFT_INSTALLATION_PATH/licenses/CURL
 			cp $SYSROOT/src/openssl/LICENSE $SWIFT_INSTALLATION_PATH/licenses/OPENSSL
 			cp $SYSROOT/src/libxml2/README $SWIFT_INSTALLATION_PATH/licenses/LIBXML
 			cp ../../libiconv-libicu-android/LICENSE $SWIFT_INSTALLATION_PATH/licenses/LIBICU
 			cp ../../ndk/android-ndk-r14b/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/COPYING.RUNTIME $SWIFT_INSTALLATION_PATH/licenses/LIBGCC
 
-			cp ../../{setup.sh,README.html} $SWIFT_INSTALLATION_PATH
+			cp ../../{{setup,rebuild_foundation}.sh,README.html} $SWIFT_INSTALLATION_PATH
 			mkdir -p $SWIFT_INSTALLATION_PATH/ndk-android-21/usr
 			rsync -av $NDK/platforms/android-21/arch-arm/usr/{include,lib} $SWIFT_INSTALLATION_PATH/ndk-android-21/usr
 
