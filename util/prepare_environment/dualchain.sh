@@ -20,7 +20,7 @@ mkdir swift-install/usr/bin
 ln -sv /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift swift-install/usr/bin
 ln -sv swift swift-install/usr/bin/swift-autolink-extract
 
-rm -rf swift-install/{usr/{include,libexec,local,share,lib/{*.a,*.so*,lldb,python2.7,swift_static,swift/{android/{CoreFoundation,armv7/glibc.modulemap~},clang/lib,linux,migrator,openssl,pm,usr}}},swift-android-gradle}
+rm -rf swift-install/{usr/{include,libexec,local,share,lib/{*.a,*.so*,lldb,python2.7,swift_static,swift/{android/{CoreFoundation,armv7/glibc.modulemap~},clang/lib,linux,migrator,openssl,pm,usr}}},swift-android-gradle,Injection4Android}
 
 tar cfvz android_toolchain.tgz swift-install/
 
