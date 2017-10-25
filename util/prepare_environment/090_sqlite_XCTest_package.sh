@@ -39,8 +39,8 @@ module sqlite3 [system] {
 MAP
 	
     	cp .libs/libsqlite3.so ../swift-android-sqlite/libs
-	$NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/arm-linux-androideabi/bin/strip ../swift-android-sqlite/libs/libsqlite3.so	
-
+	$NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/arm-linux-androideabi/bin/strip ../swift-android-sqlite/libs/libsqlite3.so
+	
 popd
 
 pushd swift-source/swift-corelibs-xctest
@@ -53,7 +53,7 @@ cp -rf ./libiconv-libicu-android/armeabi-v7a/lib/pkgconfig swift-install
 sed -i -e 's@-licu@-lscu@g' swift-install/pkgconfig/*.pc
 rm -f swift-install/pkgconfig/*.pc.tmp
 
-tar cfvz ~/update.tgz swift-install/{licenses,README.html,{setup,rebuild_foundation}.sh,foundation.txt,usr/{Linux,lib/swift/android/{lib*.so,armv7/*.swift*}},pkgconfig} swift-source/swift/{lib/{Driver/ToolChains.cpp,Parse/ParseIfConfig.cpp},stdlib/public/{runtime/ImageInspectionELF.cpp,Platform/tgmath.swift.gyb}}
+tar cfvz ~/update.tgz swift-install/{licenses,README.html,{setup,rebuild_foundation}.sh,foundation.txt,usr/{Linux,lib/swift/android/{lib*.so,armv7/*.swift*}},pkgconfig} swift-source/{llvm/lib/Target/ARM/{ARMBaseRegisterInfo.cpp,ARMCallingConv.td},swift/{lib/{Driver/ToolChains.cpp,Parse/ParseIfConfig.cpp},stdlib/public/{runtime/ImageInspectionELF.cpp,Platform/tgmath.swift.gyb}}}
 
 #tar cfvz ~/update.tgz swift-install/{licenses,README.html,{setup,rebuild_foundation}.sh,usr/{Linux,lib/swift}} swift-source/swift/{lib/{Driver/ToolChains.cpp,Parse/ParseIfConfig.cpp},stdlib/public/{runtime/ImageInspectionELF.cpp,Platform/tgmath.swift.gyb}}
 

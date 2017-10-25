@@ -63,20 +63,19 @@ pushd swift-source
 	cd compiler-rt && git checkout e0e24585ee1c8941a13465a34baa5cc0e66a705c && cd - &&
 	cd llbuild     && git checkout 1370ca71339b0c2a01d660834f83f22c94845633 && cd - &&
 	cd lldb        && git checkout a3a5134d7f083f643d09316d41094802cc117db9 && cd - &&
-	cd llvm        && git checkout 6fe1b90a2b5b098dc82fde53b93f331527025e84 && cd - &&
 	cd ninja       && git checkout 256bf897b85e35bc90294090ad39b5214eb141fb && cd - &&
 	cd swift       && git checkout android-toolchain-1.0 && cd - &&
+	rm -rf llvm                       && git clone https://github.com/SwiftJava/swift-llvm.git &&
+	mv swift-llvm llvm && cd llvm     && git checkout android-toolchain-1.0.2 && cd - &&
 	rm -rf swift-corelibs-libdispatch && git clone https://github.com/SwiftJava/swift-corelibs-libdispatch.git &&
 	cd swift-corelibs-libdispatch     && git checkout android-toolchain-1.0 && cd - &&
 	rm -rf swift-corelibs-foundation  && git clone https://github.com/SwiftJava/swift-corelibs-foundation.git &&
-	cd swift-corelibs-foundation      && git checkout android-toolchain-1.0 && cd - &&
+	cd swift-corelibs-foundation      && git checkout android-toolchain-1.0.2 && cd - &&
 	rm -rf swift-corelibs-xctest      && git clone https://github.com/SwiftJava/swift-corelibs-xctest.git &&
 	cd swift-corelibs-xctest          && git checkout android-toolchain-1.0 && cd - &&
 	cd swift-integration-tests        && git checkout 1d5d149f7aab027c9a7dccd19c0680bf36761a68 && cd - &&
 	cd swift-xcode-playground-support && git checkout 05737c49f04b9089392b599ad529ab91c7119a75 && cd - &&
 	cd swiftpm                        && git checkout f2ca05b0f2e7ae817e82dc88f9410a17e17a184a && cd -
-
-	sed -i -e 's@if (STI.isTargetDarwin() && STI.getTargetLowering()->supportSwiftError()@if (/*STI.isTargetDarwin() \&\&*/ STI.getTargetLowering()->supportSwiftError()@g' llvm/lib/Target/ARM/ARMBaseRegisterInfo.cpp
 
 popd
 
