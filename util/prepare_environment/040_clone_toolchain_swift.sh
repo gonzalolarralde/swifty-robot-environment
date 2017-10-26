@@ -64,9 +64,9 @@ pushd swift-source
 	cd llbuild     && git checkout 1370ca71339b0c2a01d660834f83f22c94845633 && cd - &&
 	cd lldb        && git checkout a3a5134d7f083f643d09316d41094802cc117db9 && cd - &&
 	cd ninja       && git checkout 256bf897b85e35bc90294090ad39b5214eb141fb && cd - &&
-	cd swift       && git checkout android-toolchain-1.0 && cd - &&
+	cd swift                          && git checkout android-toolchain-1.0 && cd - &&
 	rm -rf llvm                       && git clone https://github.com/SwiftJava/swift-llvm.git &&
-	mv swift-llvm llvm && cd llvm     && git checkout android-toolchain-1.0.2 && cd - &&
+	mv swift-llvm llvm && cd llvm     && git checkout android-toolchain-1.0.3 && cd - &&
 	rm -rf swift-corelibs-libdispatch && git clone https://github.com/SwiftJava/swift-corelibs-libdispatch.git &&
 	cd swift-corelibs-libdispatch     && git checkout android-toolchain-1.0 && cd - &&
 	rm -rf swift-corelibs-foundation  && git clone https://github.com/SwiftJava/swift-corelibs-foundation.git &&
