@@ -9,11 +9,12 @@
 
 source .profile
 
-git clone https://github.com/gonzalolarralde/libiconv-libicu-android.git libiconv-libicu-android -b icu4c-51
+git clone https://github.com/SwiftAndroid/libiconv-libicu-android.git libiconv-libicu-android
 
 pushd ./libiconv-libicu-android 
 
     export PATH="$NDK:$PATH"
+    export LIBSUFFIX="swift"
     ./build.sh
 
 popd

@@ -36,9 +36,9 @@ pushd $SWIFT_ANDROID_SOURCE/swift
         --install-prefix=/usr --install-destdir=$SWIFT_INSTALLATION_PATH
 popd
 
-cp $LIBICONV_ANDROID/armeabi-v7a/libicuuc.so $SWIFT_INSTALLATION_PATH/usr/lib/swift/android/
-cp $LIBICONV_ANDROID/armeabi-v7a/libicudata.so $SWIFT_INSTALLATION_PATH/usr/lib/swift/android/
-cp $LIBICONV_ANDROID/armeabi-v7a/libicui18n.so $SWIFT_INSTALLATION_PATH/usr/lib/swift/android/
+cp $LIBICONV_ANDROID/armeabi-v7a/libicuucswift.so $SWIFT_INSTALLATION_PATH/usr/lib/swift/android/
+cp $LIBICONV_ANDROID/armeabi-v7a/libicudataswift.so $SWIFT_INSTALLATION_PATH/usr/lib/swift/android/
+cp $LIBICONV_ANDROID/armeabi-v7a/libicui18nswift.so $SWIFT_INSTALLATION_PATH/usr/lib/swift/android/
 
 export SWIFT_ANDROID_BUILDPATH="$SWIFT_ANDROID_SOURCE/build/Ninja-ReleaseAssert"
 echo 'export SWIFT_ANDROID_BUILDPATH="'$SWIFT_ANDROID_BUILDPATH'"' >> .profile
