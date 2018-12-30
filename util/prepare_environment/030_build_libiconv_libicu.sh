@@ -2,7 +2,7 @@
 #
 # Builds libiconv and libicu using @SwiftAndroid's script
 #
-# Version 0.1 (2016-09-12)
+# Version 0.2 (2018-12-30)
 #
 # Dependencies: libiconv-libicu-android @ github/SwiftAndroid
 #
@@ -15,7 +15,7 @@ pushd ./libiconv-libicu-android
 
     export PATH="$NDK:$PATH"
     export LIBSUFFIX="swift"
-    ./build.sh
+    ./build-swift.sh
 
 popd
 

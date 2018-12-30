@@ -2,14 +2,14 @@
 #
 # Installs current NDK version and removes unused toolchains and platforms
 #
-# Version 0.6 (2017-07-19)
+# Version 0.7 (2018-12-30)
 #
 # Dependencies: ndk @ google/android
 #
 
 source .profile
 
-NDK_FILENAME=android-ndk-r14b-linux-x86_64.zip
+NDK_FILENAME=android-ndk-r16b-linux-x86_64.zip
 
 mkdir ndk
 
@@ -24,7 +24,8 @@ fi
 unzip ndk.zip -d ./ndk
 rm ndk.zip
 
-export NDK=`ls -d -1 ./ndk/* | head -1`
+export NDK_REL=`ls -d -1 ./ndk/* | head -1`
+export NDK=`realpath $NDK_REL`
 
 pushd $NDK
     pushd toolchains
@@ -32,7 +33,7 @@ pushd $NDK
     popd
 
     pushd platforms
-        rm -r android-9 android-12 android-13 android-14 android-15 android-17 android-18 android-19 android-22 android-23 android-24
+        rm -r android-16 android-17 android-18 android-19 android-22 android-23 android-24 android-26 android-27
     popd
 popd
 

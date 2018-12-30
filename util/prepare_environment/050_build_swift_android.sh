@@ -2,7 +2,7 @@
 #
 # Builds Swift compiler for Android targets based on the last source cloned
 #
-# Version 0.5 (2017-04-01)
+# Version 0.6 (2018-12-30)
 #
 # Dependencies: ndk @ google/android
 #               libiconv-libicu-android @ github/SwiftAndroid
@@ -21,10 +21,11 @@ pushd $SWIFT_ANDROID_SOURCE/swift
         --android \
         --android-ndk $NDK \
         --android-api-level 21 \
-        --android-icu-uc $LIBICONV_ANDROID/armeabi-v7a/ \
+        --android-icu-uc $LIBICONV_ANDROID/armeabi-v7a/libicuucswift.so \
         --android-icu-uc-include $LIBICONV_ANDROID/armeabi-v7a/icu/source/common \
-        --android-icu-i18n $LIBICONV_ANDROID/armeabi-v7a/ \
+        --android-icu-i18n $LIBICONV_ANDROID/armeabi-v7a/libicui18nswift.so \
         --android-icu-i18n-include $LIBICONV_ANDROID/armeabi-v7a/icu/source/i18n \
+        --android-icu-data $LIBICONV_ANDROID/armeabi-v7a/libicudataswift.so \
         --libdispatch --install-libdispatch \
         --foundation --install-foundation \
         --llbuild --install-llbuild \
